@@ -7,6 +7,7 @@ import mate.academy.internetshop.service.ItemService;
 
 public class Main {
     static Injector injector = Injector.getInstance("mate.academy.internetshop");
+
     public static void main(String[] args) {
         ItemService itemService = (ItemService) injector.getInstance(ItemService.class);
         itemService.create(new Item(0L,"item_1", new BigDecimal("19.0"), 34));

@@ -1,3 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="8.29">
+<file name="/home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/Main.java">
+</file>
+<file name="/home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/dao/impl/ItemDaoImpl.java">
+</file>
+<file name="/home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/dao/ItemDao.java">
+</file>
+<file name="/home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/service/ItemService.java">
+</file>
+<file name="/home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/service/impl/ItemServiceImpl.java">
+</file>
+<file name="/home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/lib/Dao.java">
+</file>
+<file name="/home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/lib/Inject.java">
+</file>
+<file name="/home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/lib/Injector.java">
+</file>
+<file name="/home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/lib/Service.java">
+</file>
+<file name="/home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/db/Storage.java">
+</file>
+<file name="/home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/model/Order.java">
+</file>
+<file name="/home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/model/Bucket.java">
+</file>
+<file name="/home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/model/User.java">
+</file>
+<file name="/home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/model/Item.java">
+</file>
 </checkstyle>

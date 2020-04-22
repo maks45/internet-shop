@@ -23,7 +23,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Item get(Long id) {
         return itemDao.get(id)
-                .orElseThrow(() -> new NoSuchElementException("Can't find item with id "+id));
+                .orElseThrow(() -> new NoSuchElementException("Can't find item with id " + id));
     }
 
     @Override
