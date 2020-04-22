@@ -1,7 +1,6 @@
 package mate.academy.internetshop.service.impl;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import mate.academy.internetshop.dao.ItemDao;
 import mate.academy.internetshop.lib.Inject;
