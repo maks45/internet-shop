@@ -12,11 +12,6 @@ import mate.academy.internetshop.model.ShoppingCart;
 public class ShoppingCartDaoImpl implements ShoppingCartDao {
 
     @Override
-    public List<ShoppingCart> getAllShoppingCarts() {
-        return Storage.shoppingCarts;
-    }
-
-    @Override
     public ShoppingCart addProduct(ShoppingCart shoppingCart, Product product) {
         shoppingCart.getProducts().add(product);
         int shoppingCartIndex = IntStream.range(0, Storage.shoppingCarts.size())

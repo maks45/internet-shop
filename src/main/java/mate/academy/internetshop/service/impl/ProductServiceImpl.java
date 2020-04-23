@@ -7,12 +7,15 @@ import mate.academy.internetshop.lib.Service;
 import mate.academy.internetshop.model.Product;
 import mate.academy.internetshop.service.ProductService;
 import mate.academy.internetshop.service.ShoppingCartService;
+import mate.academy.internetshop.service.UserService;
 
 @Service
 public class ProductServiceImpl implements ProductService {
 
     @Inject
     private ProductDao productDao;
+    @Inject
+    private UserService userService;
     @Inject
     private ShoppingCartService shoppingCartService;
 
@@ -38,9 +41,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public boolean delete(Long id) {
-        shoppingCartService.getAllShoppingCarts()
-                .forEach(shoppingCart -> shoppingCartService
-                        .deleteProduct(shoppingCart, productDao.get(id).get()));
+        userService.getAll().forEach(user ->
+                shoppingCartService.deleteProduct(
+                        shoppingCartService.getByUserId(user.getId()),
+                        productDao.get(id).get()
+                ));
         return productDao.delete(id);
     }
 }
