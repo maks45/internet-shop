@@ -10,11 +10,11 @@ public class Main {
 
     public static void main(String[] args) {
         ItemService itemService = (ItemService) injector.getInstance(ItemService.class);
-        itemService.create(new Product(0L,"item_1", new BigDecimal("19.0")));
-        itemService.create(new Product(0L,"item_2", new BigDecimal("28.0")));
-        itemService.create(new Product(0L,"item_3", new BigDecimal("46.0")));
-        itemService.create(new Product(0L,"item_4", new BigDecimal("56.0")));
-        itemService.create(new Product(0L,"item_5", new BigDecimal("0.1")));
+        itemService.create(new Product("item_1", new BigDecimal("19.0")));
+        itemService.create(new Product("item_2", new BigDecimal("28.0")));
+        itemService.create(new Product("item_3", new BigDecimal("46.0")));
+        itemService.create(new Product("item_4", new BigDecimal("56.0")));
+        itemService.create(new Product("item_5", new BigDecimal("0.1")));
         System.out.println("after adding");
         itemService.getAll().forEach(System.out::println);
         System.out.println("delete item with id == 2");
