@@ -2,18 +2,18 @@ package mate.academy.internetshop.dao;
 
 import java.util.List;
 import java.util.Optional;
-import mate.academy.internetshop.model.Item;
+import mate.academy.internetshop.model.Product;
 
 public interface ItemDao {
-    Item create(Item item);
+    Product create(Product product);
 
-    Optional<Item> get(Long id);
+    Optional<Product> get(Long id);
 
-    Item update(Item item);
+    Product update(Product product);
 
-    List<Item> getAll();
+    List<Product> getAll();
 
     boolean delete(Long id);
 
-    boolean delete(Item item);
+    boolean delete(Product product);
 }

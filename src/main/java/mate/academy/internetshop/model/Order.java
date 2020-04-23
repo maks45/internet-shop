@@ -4,22 +4,22 @@ import java.util.List;
 import java.util.Objects;
 
 public class Order {
-    private List<Item> items;
+    private List<Product> products;
     private Long orderId;
     private User user;
 
-    public Order(List<Item> items, Long orderId, User user) {
-        this.items = items;
+    public Order(List<Product> products, Long orderId, User user) {
+        this.products = products;
         this.orderId = orderId;
         this.user = user;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public Long getOrderId() {
@@ -47,20 +47,20 @@ public class Order {
             return false;
         }
         Order order = (Order) o;
-        return items.equals(order.items)
+        return products.equals(order.products)
                 && orderId.equals(order.orderId)
                 && user.equals(order.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(items, orderId, user);
+        return Objects.hash(products, orderId, user);
     }
 
     @Override
     public String toString() {
         return "Order{"
-                + "items=" + items
+                + "items=" + products
                 + ", orderId=" + orderId
                 + ", user=" + user
                 + '}';

@@ -4,30 +4,30 @@ import java.util.List;
 import java.util.Objects;
 
 public class Bucket {
-    private List<Item> items;
-    private Long orderId;
+    private Long id;
+    private List<Product> products;
     private User user;
 
-    public Bucket(List<Item> items, Long orderId, User user) {
-        this.items = items;
-        this.orderId = orderId;
+    public Bucket(List<Product> products, Long id, User user) {
+        this.products = products;
+        this.id = id;
         this.user = user;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
-    public Long getOrderId() {
-        return orderId;
+    public Long getId() {
+        return id;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public User getUser() {
@@ -47,21 +47,21 @@ public class Bucket {
             return false;
         }
         Bucket bucket = (Bucket) o;
-        return items.equals(bucket.items)
-                && orderId.equals(bucket.orderId)
+        return products.equals(bucket.products)
+                && id.equals(bucket.id)
                 && user.equals(bucket.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(items, orderId, user);
+        return Objects.hash(products, id, user);
     }
 
     @Override
     public String toString() {
         return "Bucket{"
-                + "items=" + items
-                + ", orderId=" + orderId
+                + "items=" + products
+                + ", id=" + id
                 + ", user=" + user
                 + '}';
     }

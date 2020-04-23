@@ -3,23 +3,23 @@ package mate.academy.internetshop.model;
 import java.util.Objects;
 
 public class User {
-    private long id;
+    private Long id;
     private String name;
     private String login;
     private String password;
 
-    public User(long id, String name, String login, String password) {
+    public User(Long id, String name, String login, String password) {
         this.id = id;
         this.name = name;
         this.login = login;
         this.password = password;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -56,7 +56,7 @@ public class User {
             return false;
         }
         User user = (User) o;
-        return id == user.id
+        return id.equals(user.id)
                 && name.equals(user.name)
                 && login.equals(user.login)
                 && password.equals(user.password);

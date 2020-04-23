@@ -6,46 +6,46 @@ import java.util.stream.IntStream;
 import mate.academy.internetshop.dao.ItemDao;
 import mate.academy.internetshop.db.Storage;
 import mate.academy.internetshop.lib.Dao;
-import mate.academy.internetshop.model.Item;
+import mate.academy.internetshop.model.Product;
 
 @Dao
 public class ItemDaoImpl implements ItemDao {
 
     @Override
-    public Item create(Item item) {
-        Storage.itemIdCounter++;
-        item.setId(Storage.itemIdCounter);
-        Storage.ITEMS.add(item);
-        return item;
+    public Product create(Product product) {
+        product.setId(Storage.getItemId());
+        Storage.PRODUCTS.add(product);
+        return product;
     }
 
     @Override
-    public Optional<Item> get(Long id) {
-        return Storage.ITEMS.stream()
+    public Optional<Product> get(Long id) {
+        return Storage.PRODUCTS.stream()
                 .filter(item -> item.getId().equals(id))
                 .findFirst();
     }
 
     @Override
-    public Item update(Item item) {
-        int index = IntStream.range(0,Storage.ITEMS.size())
-                .filter(i -> Storage.ITEMS.get(i).getId().equals(item.getId()))
-                .findFirst().orElse(-1);
-        return Storage.ITEMS.set(index,item);
+    public Product update(Product product) {
+        return Storage.PRODUCTS.set(
+                IntStream.range(0, Storage.PRODUCTS.size())
+                .filter(i -> Storage.PRODUCTS.get(i).getId().equals(product.getId()))
+                .findFirst().orElse(-1),
+                product);
     }
 
     @Override
-    public List<Item> getAll() {
-        return Storage.ITEMS;
+    public List<Product> getAll() {
+        return Storage.PRODUCTS;
     }
 
     @Override
     public boolean delete(Long id) {
-        return Storage.ITEMS.removeIf(item -> item.getId().equals(id));
+        return Storage.PRODUCTS.removeIf(item -> item.getId().equals(id));
     }
 
     @Override
-    public boolean delete(Item item) {
-        return Storage.ITEMS.remove(item);
+    public boolean delete(Product product) {
+        return Storage.PRODUCTS.remove(product);
     }
 }

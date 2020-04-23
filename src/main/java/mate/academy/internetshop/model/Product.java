@@ -3,24 +3,15 @@ package mate.academy.internetshop.model;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Item {
+public class Product {
     private Long id;
     private String name;
     private BigDecimal price;
-    private int count;
 
-    public Item(Long id, String name, BigDecimal price, int count) {
+    public Product(Long id, String name, BigDecimal price) {
         this.id = id;
         this.name = name;
         this.price = price;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
     }
 
     public Long getId() {
@@ -52,28 +43,26 @@ public class Item {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Item)) {
+        if (!(o instanceof Product)) {
             return false;
         }
-        Item item = (Item) o;
-        return count == item.count
-                && id.equals(item.id)
-                && name.equals(item.name)
-                && price.equals(item.price);
+        Product product = (Product) o;
+        return  id.equals(product.id)
+                && name.equals(product.name)
+                && price.equals(product.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, count);
+        return Objects.hash(id, name, price);
     }
 
     @Override
     public String toString() {
-        return "Item{"
+        return "Product{"
                 + "id=" + id
                 + ", name='" + name + '\''
                 + ", price=" + price
-                + ", count=" + count
                 + '}';
     }
 }
