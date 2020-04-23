@@ -12,13 +12,20 @@ import mate.academy.internetshop.model.ShoppingCart;
 public class ShoppingCartDaoImpl implements ShoppingCartDao {
 
     @Override
+    public List<ShoppingCart> getAllShoppingCarts() {
+        return Storage.shoppingCarts;
+    }
+
+    @Override
     public ShoppingCart addProduct(ShoppingCart shoppingCart, Product product) {
         shoppingCart.getProducts().add(product);
-        return Storage.shoppingCarts.set(
-                IntStream.range(0, Storage.shoppingCarts.size())
-                        .filter(i -> Storage.shoppingCarts.get(i).getId().equals(shoppingCart.getId()))
-                        .findFirst().getAsInt(),
-                shoppingCart);
+        int shoppingCartIndex = IntStream.range(0, Storage.shoppingCarts.size())
+                .filter(i -> Storage.shoppingCarts.get(i)
+                        .getId().equals(shoppingCart.getId()))
+                .findFirst().orElse(-1);
+        return shoppingCartIndex == -1
+                ? Storage.addShoppingCard(shoppingCart)
+                : Storage.shoppingCarts.set(shoppingCartIndex, shoppingCart);
     }
 
     @Override

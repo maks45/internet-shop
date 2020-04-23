@@ -8,9 +8,8 @@ public class ShoppingCart {
     private List<Product> products;
     private User user;
 
-    public ShoppingCart(List<Product> products, Long id, User user) {
+    public ShoppingCart(List<Product> products, User user) {
         this.products = products;
-        this.id = id;
         this.user = user;
     }
 

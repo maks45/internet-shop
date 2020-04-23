@@ -5,6 +5,8 @@ import mate.academy.internetshop.model.Product;
 import mate.academy.internetshop.model.ShoppingCart;
 
 public interface ShoppingCartDao {
+    List<ShoppingCart> getAllShoppingCarts();
+
     ShoppingCart addProduct(ShoppingCart shoppingCart, Product product);
 
     boolean deleteProduct(ShoppingCart shoppingCart, Product product);

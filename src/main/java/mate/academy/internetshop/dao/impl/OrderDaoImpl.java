@@ -14,7 +14,8 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public Order completeOrder(List<Product> products, User user) {
-        return null;
+        Order order = new Order(products, user);
+        return Storage.addOrder(order);
     }
 
     @Override

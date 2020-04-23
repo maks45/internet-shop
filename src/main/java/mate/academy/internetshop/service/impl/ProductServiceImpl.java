@@ -6,12 +6,15 @@ import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.lib.Service;
 import mate.academy.internetshop.model.Product;
 import mate.academy.internetshop.service.ProductService;
+import mate.academy.internetshop.service.ShoppingCartService;
 
 @Service
 public class ProductServiceImpl implements ProductService {
 
     @Inject
     private ProductDao productDao;
+    @Inject
+    private ShoppingCartService shoppingCartService;
 
     @Override
     public Product create(Product product) {
@@ -35,6 +38,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public boolean delete(Long id) {
+        shoppingCartService.getAllShoppingCarts()
+                .forEach(shoppingCart -> shoppingCartService
+                        .deleteProduct(shoppingCart, productDao.get(id).get()));
         return productDao.delete(id);
     }
 }
