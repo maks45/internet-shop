@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User get(Long id) {
-        return userDao.get(id);
+        return userDao.get(id).get();
     }
 
     @Override
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean delete(Long id) {
-        orderService.getUserOrders(userDao.get(id))
+        orderService.getUserOrders(get(id))
                 .forEach(order -> orderService.delete(order.getOrderId()));
         return userDao.delete(id);
     }
