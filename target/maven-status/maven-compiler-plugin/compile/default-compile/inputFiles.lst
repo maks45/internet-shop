@@ -8,7 +8,7 @@
 /home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/service/ItemService.java
 /home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/service/impl/ItemServiceImpl.java
 /home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/db/Storage.java
-/home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/model/Item.java
 /home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/Main.java
 /home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/lib/Dao.java
 /home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/model/Bucket.java
+/home/maks/IdeaProjects/hw/internet-shop/src/main/java/mate/academy/internetshop/model/Product.java

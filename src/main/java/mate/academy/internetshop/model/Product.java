@@ -47,7 +47,7 @@ public class Product {
             return false;
         }
         Product product = (Product) o;
-        return  id.equals(product.id)
+        return id.equals(product.id)
                 && name.equals(product.name)
                 && price.equals(product.price);
     }
