@@ -1,6 +1,5 @@
 package mate.academy.internetshop.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import mate.academy.internetshop.dao.OrderDao;
 import mate.academy.internetshop.lib.Inject;
@@ -20,9 +19,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order completeOrder(List<Product> products, User user) {
-        List<Product> productList = new ArrayList<>(products);
+        Order order = orderDao.completeOrder(products, user);
         shoppingCartService.clear(shoppingCartService.getByUserId(user.getId()));
-        return orderDao.completeOrder(productList, user);
+        return order;
     }
 
     @Override
