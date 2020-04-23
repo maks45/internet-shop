@@ -3,12 +3,12 @@ package mate.academy.internetshop.model;
 import java.util.List;
 import java.util.Objects;
 
-public class Bucket {
+public class ShoppingCart {
     private Long id;
     private List<Product> products;
     private User user;
 
-    public Bucket(List<Product> products, Long id, User user) {
+    public ShoppingCart(List<Product> products, Long id, User user) {
         this.products = products;
         this.id = id;
         this.user = user;
@@ -43,13 +43,13 @@ public class Bucket {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Bucket)) {
+        if (!(o instanceof ShoppingCart)) {
             return false;
         }
-        Bucket bucket = (Bucket) o;
-        return products.equals(bucket.products)
-                && id.equals(bucket.id)
-                && user.equals(bucket.user);
+        ShoppingCart shoppingCart = (ShoppingCart) o;
+        return products.equals(shoppingCart.products)
+                && id.equals(shoppingCart.id)
+                && user.equals(shoppingCart.user);
     }
 
     @Override
