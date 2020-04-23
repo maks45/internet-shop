@@ -15,37 +15,37 @@ public class ItemDaoImpl implements ItemDao {
     public Item create(Item item) {
         Storage.itemIdCounter++;
         item.setId(Storage.itemIdCounter);
-        Storage.items.add(item);
+        Storage.ITEMS.add(item);
         return item;
     }
 
     @Override
     public Optional<Item> get(Long id) {
-        return Storage.items.stream()
+        return Storage.ITEMS.stream()
                 .filter(item -> item.getId().equals(id))
                 .findFirst();
     }
 
     @Override
     public Item update(Item item) {
-        int index = IntStream.range(0,Storage.items.size())
-                .filter(i -> Storage.items.get(i).getId().equals(item.getId()))
+        int index = IntStream.range(0,Storage.ITEMS.size())
+                .filter(i -> Storage.ITEMS.get(i).getId().equals(item.getId()))
                 .findFirst().orElse(-1);
-        return Storage.items.set(index,item);
+        return Storage.ITEMS.set(index,item);
     }
 
     @Override
     public List<Item> getAll() {
-        return Storage.items;
+        return Storage.ITEMS;
     }
 
     @Override
     public boolean delete(Long id) {
-        return Storage.items.removeIf(item -> item.getId().equals(id));
+        return Storage.ITEMS.removeIf(item -> item.getId().equals(id));
     }
 
     @Override
     public boolean delete(Item item) {
-        return Storage.items.remove(item);
+        return Storage.ITEMS.remove(item);
     }
 }
