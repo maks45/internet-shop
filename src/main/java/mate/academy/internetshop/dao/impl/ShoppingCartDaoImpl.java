@@ -17,13 +17,11 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
 
     @Override
     public ShoppingCart update(ShoppingCart shoppingCart) {
-        int index = IntStream.range(0, Storage.shoppingCarts.size())
+        return Storage.shoppingCarts.set(
+                IntStream.range(0, Storage.shoppingCarts.size())
                 .filter(i -> Storage.shoppingCarts.get(i).getId().equals(shoppingCart.getId()))
-                .findFirst().orElse(-1);
-        if (index == -1) {
-            return create(shoppingCart);
-        }
-        return Storage.shoppingCarts.set(index, shoppingCart);
+                .findFirst().getAsInt(),
+                shoppingCart);
     }
 
     @Override
