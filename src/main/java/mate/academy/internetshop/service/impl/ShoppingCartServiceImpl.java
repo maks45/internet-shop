@@ -17,8 +17,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public ShoppingCart addProduct(ShoppingCart shoppingCart, Product product) {
         shoppingCart.getProducts().add(product);
-        return shoppingCartDao.update(shoppingCart)
-                .orElse(shoppingCartDao.create(shoppingCart));
+        return shoppingCartDao.update(shoppingCart);
     }
 
     @Override

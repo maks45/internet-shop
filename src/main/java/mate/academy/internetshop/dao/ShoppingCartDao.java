@@ -7,7 +7,7 @@ public interface ShoppingCartDao {
 
     ShoppingCart create(ShoppingCart shoppingCart);
 
-    Optional<ShoppingCart> update(ShoppingCart shoppingCart);
+    ShoppingCart update(ShoppingCart shoppingCart);
 
     boolean delete(ShoppingCart shoppingCart);
 
