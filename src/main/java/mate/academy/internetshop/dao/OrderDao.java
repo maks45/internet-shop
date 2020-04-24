@@ -7,7 +7,9 @@ import mate.academy.internetshop.model.Product;
 import mate.academy.internetshop.model.User;
 
 public interface OrderDao {
-    Order completeOrder(List<Product> products, User user);
+    Order create(List<Product> products, User user);
+
+    Order update(Order order);
 
     List<Order> getUserOrders(User user);
 
