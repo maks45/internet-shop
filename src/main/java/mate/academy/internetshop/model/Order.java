@@ -8,9 +8,8 @@ public class Order {
     private Long orderId;
     private User user;
 
-    public Order(List<Product> products, Long orderId, User user) {
+    public Order(List<Product> products, User user) {
         this.products = products;
-        this.orderId = orderId;
         this.user = user;
     }
 
