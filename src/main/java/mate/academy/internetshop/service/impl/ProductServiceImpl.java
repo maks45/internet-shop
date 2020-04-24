@@ -41,11 +41,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public boolean delete(Long id) {
-        userService.getAll().forEach(user ->
-                shoppingCartService.deleteProduct(
-                        shoppingCartService.getByUserId(user.getId()),
-                        productDao.get(id).get()
-                ));
         return productDao.delete(id);
     }
 }

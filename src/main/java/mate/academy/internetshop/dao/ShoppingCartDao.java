@@ -9,7 +9,7 @@ public interface ShoppingCartDao {
 
     Optional<ShoppingCart> update(ShoppingCart shoppingCart);
 
-    void clear(ShoppingCart shoppingCart);
+    boolean delete(ShoppingCart shoppingCart);
 
     Optional<ShoppingCart> getByUserId(Long userId);
 

@@ -38,8 +38,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean delete(Long id) {
-        orderService.getUserOrders(get(id))
-                .forEach(order -> orderService.delete(order.getOrderId()));
         return userDao.delete(id);
     }
 }

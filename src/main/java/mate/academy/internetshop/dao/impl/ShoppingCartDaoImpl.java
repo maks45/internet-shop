@@ -27,10 +27,8 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
     }
 
     @Override
-    public void clear(ShoppingCart shoppingCart) {
-        Storage.shoppingCarts.stream()
-                .filter(shoppingCart1 -> shoppingCart1.getId().equals(shoppingCart.getId()))
-                .findFirst().get().getProducts().clear();
+    public boolean delete(ShoppingCart shoppingCart) {
+        return Storage.shoppingCarts.remove(shoppingCart);
     }
 
     @Override
