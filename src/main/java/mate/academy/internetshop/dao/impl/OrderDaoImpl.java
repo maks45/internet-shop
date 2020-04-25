@@ -8,15 +8,13 @@ import mate.academy.internetshop.dao.OrderDao;
 import mate.academy.internetshop.db.Storage;
 import mate.academy.internetshop.lib.Dao;
 import mate.academy.internetshop.model.Order;
-import mate.academy.internetshop.model.Product;
 import mate.academy.internetshop.model.User;
 
 @Dao
 public class OrderDaoImpl implements OrderDao {
 
     @Override
-    public Order create(List<Product> products, User user) {
-        Order order = new Order(List.copyOf(products), user);
+    public Order create(Order order) {
         return Storage.addOrder(order);
     }
 

@@ -35,7 +35,7 @@ public class Main {
         System.out.println(shoppingCart);
         Order order = orderService.completeOrder(shoppingCart.getProducts(), user);
         System.out.println(order);
-        System.out.println(shoppingCartService.getByUserId(user.getId()));
+        System.out.println(shoppingCartService.get(user.getId()));
         userService.delete(user.getId());
         System.out.println(userService.getAll());
         System.out.println(orderService.getAll());
