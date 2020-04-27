@@ -18,8 +18,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public ShoppingCart addProduct(ShoppingCart shoppingCart, Product product) {
         shoppingCart.getProducts().add(product);
         return shoppingCartDao.getByUserId(shoppingCart.getUser().getId()).isPresent()
-                ? shoppingCartDao.update(shoppingCart)
-                : shoppingCartDao.create(shoppingCart);
+                ? update(shoppingCart)
+                : create(shoppingCart);
     }
 
     @Override
@@ -37,8 +37,28 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public ShoppingCart getByUserId(Long userId) {
+    public ShoppingCart create(ShoppingCart shoppingCart) {
+        return shoppingCartDao.create(shoppingCart);
+    }
+
+    @Override
+    public ShoppingCart update(ShoppingCart shoppingCart) {
+        return shoppingCartDao.update(shoppingCart);
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        return shoppingCartDao.delete(id);
+    }
+
+    @Override
+    public ShoppingCart get(Long userId) {
         return shoppingCartDao.getByUserId(userId).get();
+    }
+
+    @Override
+    public List<ShoppingCart> getAll() {
+        return shoppingCartDao.getAll();
     }
 
     @Override
