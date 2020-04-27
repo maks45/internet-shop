@@ -1,19 +1,18 @@
 package mate.academy.internetshop.controllers;
 
-import java.io.IOException;
-import java.math.BigDecimal;
+import mate.academy.internetshop.lib.Injector;
+import mate.academy.internetshop.model.Product;
+import mate.academy.internetshop.service.ProductService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import mate.academy.internetshop.lib.Injector;
-import mate.academy.internetshop.model.Product;
-import mate.academy.internetshop.service.ProductService;
+import java.io.IOException;
+import java.math.BigDecimal;
 
 public class AddProductController extends HttpServlet {
     private static Injector injector = Injector.getInstance("mate.academy.internetshop");
-    private static ProductService productService =
-            (ProductService) injector.getInstance(ProductService.class);
+    private static ProductService productService = (ProductService) injector.getInstance(ProductService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -27,6 +26,6 @@ public class AddProductController extends HttpServlet {
         String name = req.getParameter("name");
         String price = req.getParameter("price");
         productService.create(new Product(name, new BigDecimal(price)));
-        resp.sendRedirect(req.getContextPath() + "/products/all");
+        resp.sendRedirect(req.getContextPath()+"/products/all");
     }
 }

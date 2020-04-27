@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: maks
+  Date: 4/27/20
+  Time: 7:21 PM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -20,7 +27,5 @@
     <br/>
     <button type="submit">Add product</button>
 </form>
-<br/>
-<a href="${pageContext.request.contextPath}/">Main page</a>
 </body>
 </html>

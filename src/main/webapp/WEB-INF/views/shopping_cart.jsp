@@ -13,20 +13,17 @@
         <th>Price</th>
     </tr>
     <c:forEach var="product" items="${products}">
-        <tr>
-            <td>
-                <c:out value="${product.id}"/>
-            </td>
-            <td>
-                <c:out value="${product.name}"/>
-            </td>
-            <td>
-                <c:out value="${product.price}"/>
-            </td>
-        </tr>
+    <tr>
+        <td>
+            <c:out value="${product.id}"/>
+        </td>
+        <td>
+            <c:out value="${product.name}"/>
+        </td>
+        <td>
+            <c:out value="${product.price}"/>
+        </td>
+    </tr>
     </c:forEach>
-</table>
-<br/>
-<a href="${pageContext.request.contextPath}/">Main page</a>
 </body>
 </html>
