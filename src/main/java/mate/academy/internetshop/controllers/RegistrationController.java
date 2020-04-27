@@ -1,17 +1,16 @@
 package mate.academy.internetshop.controllers;
 
-import mate.academy.internetshop.lib.Injector;
-import mate.academy.internetshop.model.Product;
-import mate.academy.internetshop.model.ShoppingCart;
-import mate.academy.internetshop.model.User;
-import mate.academy.internetshop.service.ShoppingCartService;
-import mate.academy.internetshop.service.UserService;
+import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
+import mate.academy.internetshop.lib.Injector;
+import mate.academy.internetshop.model.ShoppingCart;
+import mate.academy.internetshop.model.User;
+import mate.academy.internetshop.service.ShoppingCartService;
+import mate.academy.internetshop.service.UserService;
 
 public class RegistrationController extends HttpServlet {
     private static Injector injector = Injector.getInstance("mate.academy.internetshop");
@@ -35,7 +34,7 @@ public class RegistrationController extends HttpServlet {
         if (password.equals(confirmPassword)) {
             User user = userService.create(new User(name,login,password));
             shoppingCartService.create(new ShoppingCart(new ArrayList<>(), user));
-            resp.sendRedirect(req.getContextPath()+"/users/all");
+            resp.sendRedirect(req.getContextPath() + "/users/all");
         } else {
             req.setAttribute("msg", "Password and confirm password must be same!");
             req.setAttribute("login", login);

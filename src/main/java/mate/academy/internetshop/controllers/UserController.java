@@ -1,15 +1,14 @@
 package mate.academy.internetshop.controllers;
 
+import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
-
 import mate.academy.internetshop.lib.Injector;
-import mate.academy.internetshop.service.UserService;
 import mate.academy.internetshop.model.User;
+import mate.academy.internetshop.service.UserService;
 
 public class UserController extends HttpServlet {
     private static Injector injector = Injector.getInstance("mate.academy.internetshop");
