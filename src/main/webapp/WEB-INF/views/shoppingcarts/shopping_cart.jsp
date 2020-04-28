@@ -30,6 +30,9 @@
     </c:forEach>
 </table>
 <p>
+    <h2 style="color: red">${msg}</h2>
+</p>
+<p>
     <a href="${pageContext.request.contextPath}/orders/complete">Complete order</a>
 </p>
 <br/>
