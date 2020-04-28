@@ -1,6 +1,7 @@
-package mate.academy.internetshop.controllers;
+package mate.academy.internetshop.controllers.product;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -8,22 +9,24 @@ import javax.servlet.http.HttpServletResponse;
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Product;
 import mate.academy.internetshop.service.ProductService;
-import mate.academy.internetshop.service.ShoppingCartService;
 
-public class AddProductToShoppingCartController extends HttpServlet {
+public class AddProductController extends HttpServlet {
     private static Injector injector = Injector.getInstance("mate.academy.internetshop");
     private static ProductService productService =
             (ProductService) injector.getInstance(ProductService.class);
-    private static ShoppingCartService shoppingCartService
-            = (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
-    private static final Long USER_ID = 1L;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String productId = req.getParameter("product_id");
-        Product product = productService.get(Long.parseLong(productId));
-        shoppingCartService.addProduct(shoppingCartService.get(USER_ID), product);
+        req.getRequestDispatcher("/WEB-INF/views/add_product.jsp").forward(req,resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        String name = req.getParameter("name");
+        String price = req.getParameter("price");
+        productService.create(new Product(name, new BigDecimal(price)));
         resp.sendRedirect(req.getContextPath() + "/products/all");
     }
 }
