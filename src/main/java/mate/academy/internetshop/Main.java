@@ -14,7 +14,6 @@ import mate.academy.internetshop.service.UserService;
 
 public class Main {
     private static Injector injector = Injector.getInstance("mate.academy.internetshop");
-
     public static void main(String[] args) {
         UserService userService = (UserService) injector.getInstance(UserService.class);
         User user = userService.create(new User("Maks", "maks23", "777"));
