@@ -10,7 +10,6 @@ import mate.academy.internetshop.model.ShoppingCart;
 
 @Dao
 public class ShoppingCartDaoImpl implements ShoppingCartDao {
-
     @Override
     public ShoppingCart create(ShoppingCart shoppingCart) {
         return Storage.addShoppingCard(shoppingCart);
