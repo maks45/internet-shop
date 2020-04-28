@@ -3,15 +3,24 @@
 <html>
 <head>
     <title>All users</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
 </head>
 <body>
+<div align= "left" style="align-content: stretch ; margin: 2%">
 <h1>All users:</h1>
-<table border="1">
+<table border="1" class="table">
+    <thead class="thead-dark">
     <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Login</th>
     </tr>
+    </thead>
     <c:forEach var="user" items="${users}">
         <tr>
             <td>
@@ -32,7 +41,9 @@
         </tr>
     </c:forEach>
 </table>
-<br/>
-<a href="${pageContext.request.contextPath}/">Main page</a>
+    <form action="${pageContext.request.contextPath}/">
+        <button type="submit" style="width: 10%" class="btn btn-outline-primary">Main page</button>
+    </form>
+</div>
 </body>
 </html>

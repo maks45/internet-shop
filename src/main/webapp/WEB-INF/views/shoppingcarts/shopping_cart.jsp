@@ -3,10 +3,17 @@
 <html>
 <head>
     <title>Shopping cart</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
 </head>
 <body>
+<div style="align-content: stretch ; margin: 2%">
 <h1>Shopping cart:</h1>
-<table border="1">
+<table border="1" class="table table-sm">
     <tr>
         <th>ID</th>
         <th>Name</th>
@@ -24,7 +31,9 @@
                 <c:out value="${product.price}"/>
             </td>
             <td>
-                <a href="${pageContext.request.contextPath}/shoppingcarts/removeproduct?product_id=${product.id}">Delete</a>
+                <form style="align-self: center" action="${pageContext.request.contextPath}/shoppingcarts/removeproduct?product_id=${product.id}">
+                    <button type="submit" class="btn btn-outline-primary">Delete</button>
+                </form>
             </td>
         </tr>
     </c:forEach>
@@ -32,10 +41,12 @@
 <p>
     <h2 style="color: red">${msg}</h2>
 </p>
-<p>
-    <a href="${pageContext.request.contextPath}/orders/complete">Complete order</a>
-</p>
-<br/>
-<a href="${pageContext.request.contextPath}/">Main page</a>
+<form action="${pageContext.request.contextPath}/orders/complete">
+    <button type="submit" style="width: 10%" class="btn btn-outline-primary">Complete order</button>
+</form>
+<form action="${pageContext.request.contextPath}/">
+    <button type="submit" style="width: 10%" class="btn btn-outline-primary">Main page</button>
+</form>
+</div>
 </body>
 </html>

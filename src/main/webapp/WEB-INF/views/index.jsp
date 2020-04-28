@@ -18,8 +18,8 @@
             <button  style="width: 10%" type="submit" class="btn btn-outline-primary">Registration</button>
         </form>
 
-        <form action="${pageContext.request.contextPath}/addproduct">
-            <button type="submit" style="width: 10%" class="btn btn-outline-primary">Add product</button>
+        <form action="${pageContext.request.contextPath}/products/edit">
+            <button type="submit" style="width: 10%" class="btn btn-outline-primary">Edit products</button>
         </form>
         <form action="${pageContext.request.contextPath}/products/all">
             <button type="submit" style="width: 10%" class="btn btn-outline-primary">All products</button>
