@@ -11,12 +11,12 @@ import mate.academy.internetshop.service.ProductService;
 import mate.academy.internetshop.service.ShoppingCartService;
 
 public class AddProductToShoppingCartController extends HttpServlet {
+    private static final Long USER_ID = 1L;
     private static Injector injector = Injector.getInstance("mate.academy.internetshop");
     private static ProductService productService =
             (ProductService) injector.getInstance(ProductService.class);
     private static ShoppingCartService shoppingCartService
             = (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
-    private static final Long USER_ID = 1L;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
