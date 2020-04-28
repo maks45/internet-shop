@@ -10,7 +10,6 @@
           crossorigin="anonymous">
 </head>
 <body>
-<div class="container">
 <h1>Internet shop:</h1>
 <br/>
         <form action="${pageContext.request.contextPath}/registration">
@@ -29,6 +28,5 @@
         <form action="${pageContext.request.contextPath}/shoppingcart">
             <button type="submit" class="btn btn-outline-primary">Shopping cart</button>
         </form>
-</div>
 </body>
 </html>
