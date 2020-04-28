@@ -19,7 +19,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order completeOrder(List<Product> products, User user) {
-        Order order = create(new Order(products, user));
+        Order order = create(new Order(List.copyOf(products), user));
         shoppingCartService.clear(shoppingCartService.get(user.getId()));
         return order;
     }

@@ -2,36 +2,36 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>All users</title>
+    <title>Shopping cart</title>
 </head>
 <body>
-<h1>All users:</h1>
+<h1>Shopping cart:</h1>
 <table border="1">
     <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Login</th>
+        <th>Price</th>
     </tr>
-    <c:forEach var="user" items="${users}">
+    <c:forEach var="product" items="${products}">
         <tr>
             <td>
-                <c:out value="${user.id}"/>
+                <c:out value="${product.id}"/>
             </td>
             <td>
-                <c:out value="${user.name}"/>
+                <c:out value="${product.name}"/>
             </td>
             <td>
-                <c:out value="${user.login}"/>
+                <c:out value="${product.price}"/>
             </td>
             <td>
-                <a href="${pageContext.request.contextPath}/orders/user?user_id=${user.id}">Show orders</a>
-            </td>
-            <td>
-                <a href="${pageContext.request.contextPath}/deleteUser?user_id=${user.id}">Delete</a>
+                <a href="${pageContext.request.contextPath}/shoppingcarts/removeproduct?product_id=${product.id}">Delete</a>
             </td>
         </tr>
     </c:forEach>
 </table>
+<p>
+    <a href="${pageContext.request.contextPath}/orders/complete">Complete order</a>
+</p>
 <br/>
 <a href="${pageContext.request.contextPath}/">Main page</a>
 </body>

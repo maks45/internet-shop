@@ -9,7 +9,6 @@ import mate.academy.internetshop.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
-
     @Inject
     UserDao userDao;
 
