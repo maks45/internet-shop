@@ -82,16 +82,51 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>shoppingCartRemoveProduct</servlet-name>
-        <url-pattern>/shoppingcartremoveproduct</url-pattern>
+        <url-pattern>/shoppingcarts/removeproduct</url-pattern>
     </servlet-mapping>
 
     <servlet>
         <servlet-name>completeOrder</servlet-name>
-        <servlet-class>mate.academy.internetshop.controllers.order.CompleteOrderController</servlet-class>
+        <servlet-class>mate.academy.internetshop.controllers.order.OrderController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>completeOrder</servlet-name>
-        <url-pattern>/completeorder</url-pattern>
+        <url-pattern>/orders/complete</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>deleteProduct</servlet-name>
+        <servlet-class>mate.academy.internetshop.controllers.product.DeleteProductController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>deleteProduct</servlet-name>
+        <url-pattern>/deleteproduct</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>editProducts</servlet-name>
+        <servlet-class>mate.academy.internetshop.controllers.product.EditProductsController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>editProducts</servlet-name>
+        <url-pattern>/products/edit</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ordersByUser</servlet-name>
+        <servlet-class>mate.academy.internetshop.controllers.order.UserOrdersController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ordersByUser</servlet-name>
+        <url-pattern>/orders/user</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ordersDelete</servlet-name>
+        <servlet-class>mate.academy.internetshop.controllers.order.DeleteOrderController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ordersDelete</servlet-name>
+        <url-pattern>/orders/delete</url-pattern>
+    </servlet-mapping>
 </web-app>

@@ -21,7 +21,7 @@ public class RegistrationController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.getRequestDispatcher("WEB-INF/views/registration.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/views/users/registration.jsp").forward(req, resp);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class RegistrationController extends HttpServlet {
             req.setAttribute("msg", "Password and confirm password must be same!");
             req.setAttribute("login", login);
             req.setAttribute("name", name);
-            req.getRequestDispatcher("WEB-INF/views/registration.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/views/users/registration.jsp").forward(req, resp);
         }
     }
 }

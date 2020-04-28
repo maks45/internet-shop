@@ -1,18 +1,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Shopping cart</title>
+    <title>Order</title>
 </head>
 <body>
-<h1>Shopping cart:</h1>
+<h1>Order #${order.orderId}:</h1>
 <table border="1">
     <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Price</th>
     </tr>
-    <c:forEach var="product" items="${products}">
+    <c:forEach var="product" items="${order.products}">
         <tr>
             <td>
                 <c:out value="${product.id}"/>
@@ -23,16 +22,11 @@
             <td>
                 <c:out value="${product.price}"/>
             </td>
-            <td>
-                <a href="${pageContext.request.contextPath}/shoppingcartremoveproduct?product_id=${product.id}">Delete</a>
-            </td>
         </tr>
     </c:forEach>
 </table>
-<p>
-    <a href="${pageContext.request.contextPath}/completeorder?user_id=${user.id}">Complete order</a>
-</p>
+<br/>
+<a href="${pageContext.request.contextPath}/cancel">Cancel order</a>
 <br/>
 <a href="${pageContext.request.contextPath}/">Main page</a>
 </body>
-</html>
