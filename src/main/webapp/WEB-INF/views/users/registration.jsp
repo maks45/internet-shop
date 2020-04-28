@@ -2,8 +2,12 @@
 <html>
 <head>
     <title>Registration</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
 </head>
-<body>
+<div align= "left" style="align-content: stretch ; margin: 2%">
 <h2>Registration user</h2>
 <form method="post" action="${pageContext.request.contextPath}/registration">
     Name:
@@ -29,10 +33,14 @@
     <label>
         <input type="password" name="pwd-confirm">
     </label>
-    <h4 style="color: red">${msg}</h4>
-    <button type="submit">Register</button>
+    <br/>
+    <h7 style="color: red">${msg}</h7>
+    <br/>
+    <button type="submit" style="width: 10%" class="btn btn-outline-primary">Register</button>
 </form>
-<br/>
-<a href="${pageContext.request.contextPath}/">Main page</a>
+    <form action="${pageContext.request.contextPath}/">
+        <button type="submit" style="width: 10%" class="btn btn-outline-primary">Main page</button>
+    </form>
+</div>
 </body>
 </html>

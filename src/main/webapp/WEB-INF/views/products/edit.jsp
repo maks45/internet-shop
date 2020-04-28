@@ -3,8 +3,15 @@
 <html>
 <head>
     <title>Edit products</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
 </head>
 <body>
+<div style="align-content: stretch ; margin: 2%">
 <h1>Edit products:</h1>
 <table border="1">
     <tr>
@@ -35,5 +42,6 @@
 <a href="${pageContext.request.contextPath}/addproduct">Add new product</a>
 <br/>
 <a href="${pageContext.request.contextPath}/">Main page</a>
+</div>
 </body>
 </html>

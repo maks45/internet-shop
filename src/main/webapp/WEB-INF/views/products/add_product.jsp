@@ -20,7 +20,8 @@
     <br/>
     <button type="submit">Add product</button>
 </form>
-<br/>
-<a href="${pageContext.request.contextPath}/">Main page</a>
+<form action="${pageContext.request.contextPath}/">
+    <button type="submit" style="width: 10%" class="btn btn-outline-primary">Main page</button>
+</form>
 </body>
 </html>
