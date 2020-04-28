@@ -10,23 +10,27 @@
           crossorigin="anonymous">
 </head>
 <body>
+<div align= "left" style="align-content: stretch ; margin: 2%">
 <h1>Internet shop:</h1>
 <br/>
+    <div style="width: auto">
         <form action="${pageContext.request.contextPath}/registration">
-            <button style="align-items: center" type="submit" class="btn btn-outline-primary">Registration</button>
+            <button  style="width: 10%" type="submit" class="btn btn-outline-primary">Registration</button>
         </form>
 
         <form action="${pageContext.request.contextPath}/addproduct">
-            <button type="submit" class="btn btn-outline-primary">Add product</button>
+            <button type="submit" style="width: 10%" class="btn btn-outline-primary">Add product</button>
         </form>
         <form action="${pageContext.request.contextPath}/products/all">
-            <button type="submit" class="btn btn-outline-primary">All products</button>
+            <button type="submit" style="width: 10%" class="btn btn-outline-primary">All products</button>
         </form>
         <form action="${pageContext.request.contextPath}/users/all">
-            <button type="submit" class="btn btn-outline-primary">All users</button>
+            <button type="submit" style="width: 10%" class="btn btn-outline-primary">All users</button>
         </form>
         <form action="${pageContext.request.contextPath}/shoppingcart">
-            <button type="submit" class="btn btn-outline-primary">Shopping cart</button>
+            <button type="submit" style="width: 10%" class="btn btn-outline-primary">Shopping cart</button>
         </form>
+    </div>
+</div>
 </body>
 </html>
