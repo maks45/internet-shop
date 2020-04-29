@@ -5,6 +5,8 @@
     <title>All orders</title>
 </head>
 <body>
+<div style="align-content: stretch ; margin: 2%">
+    <jsp:include page="../header.jsp" />
 <h1>All orders:</h1>
 <table border="1" class="table">
     <tr>
@@ -31,6 +33,6 @@
 </table>
 <br/>
 <a href="${pageContext.request.contextPath}/shoppingcart">Go to shopping cart</a>
-<br/>
-<a href="${pageContext.request.contextPath}/">Main page</a>
+</div>
 </body>
+</html>
