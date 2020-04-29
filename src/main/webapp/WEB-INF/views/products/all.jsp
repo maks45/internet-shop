@@ -11,7 +11,8 @@
           crossorigin="anonymous">
 </head>
 <body>
-<h1>All products:</h1>
+<div align= "left" style="align-content: stretch ; margin: 2%">
+<jsp:include page="../header.jsp" />
 <table border="1" class="table">
     <tr>
         <th>ID</th>
@@ -40,7 +41,6 @@
 </table>
 <br/>
 <a href="${pageContext.request.contextPath}/shoppingcart">Go to shopping cart</a>
-<br/>
-<a href="${pageContext.request.contextPath}/">Main page</a>
+</div>
 </body>
 </html>

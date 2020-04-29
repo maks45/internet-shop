@@ -11,7 +11,9 @@
           crossorigin="anonymous">
 </head>
 <body>
-<h1>All orders for user with id #${userId}:</h1>
+<div style="align-content: stretch ; margin: 2%">
+<jsp:include page="../header.jsp" />
+<h2>All orders for user - name: ${user.name}, login: ${user.login}, id: ${user.id}:</h2>
 <table border="1" class="table">
     <tr>
         <th>Order ID</th>
@@ -29,6 +31,6 @@
         </tr>
     </c:forEach>
 </table>
-<a href="${pageContext.request.contextPath}/">Main page</a>
+</div>
 </body>
 </html>

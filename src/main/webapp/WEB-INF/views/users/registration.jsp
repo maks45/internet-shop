@@ -8,6 +8,7 @@
           crossorigin="anonymous">
 </head>
 <div align= "left" style="align-content: stretch ; margin: 2%">
+    <jsp:include page="../header.jsp" />
 <h2>Registration user</h2>
 <form method="post" action="${pageContext.request.contextPath}/registration">
     Name:
@@ -38,9 +39,6 @@
     <br/>
     <button type="submit" style="width: 10%" class="btn btn-outline-primary">Register</button>
 </form>
-    <form action="${pageContext.request.contextPath}/">
-        <button type="submit" style="width: 10%" class="btn btn-outline-primary">Main page</button>
-    </form>
 </div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Main page</title>
+    <title>NonameShop</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet"
@@ -11,8 +11,8 @@
 </head>
 <body>
 <div align= "left" style="align-content: stretch ; margin: 2%">
-<h1>Internet shop:</h1>
-<br/>
+    <jsp:include page="header.jsp" />
+    <br/>
     <div style="width: auto">
         <form action="${pageContext.request.contextPath}/registration">
             <button  style="width: 10%" type="submit" class="btn btn-outline-primary">Registration</button>
