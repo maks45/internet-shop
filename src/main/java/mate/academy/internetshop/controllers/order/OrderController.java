@@ -33,7 +33,7 @@ public class OrderController extends HttpServlet {
                  shoppingCartService.getAllProducts(shoppingCartService.get(USER_ID)),
                  userService.get(USER_ID));
         }
-        if(order.getProducts().size() == 0){
+        if (order.getProducts().size() == 0) {
             req.setAttribute("msg", "Can't create order with empty shopping cart!");
             req.getRequestDispatcher("/WEB-INF/views/shoppingcarts/shopping_cart.jsp")
                     .forward(req,resp);
