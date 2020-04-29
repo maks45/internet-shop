@@ -76,3 +76,7 @@
         <url-pattern>/shoppingcart</url-pattern>
     </servlet-mapping>
 </web-app>
+
+        <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+</web-app>
