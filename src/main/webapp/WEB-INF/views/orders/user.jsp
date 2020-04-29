@@ -12,7 +12,7 @@
 </head>
 <body>
 <h1>All orders for user with id #${userId}:</h1>
-<table border="1">
+<table border="1" class="table">
     <tr>
         <th>Order ID</th>
     </tr>

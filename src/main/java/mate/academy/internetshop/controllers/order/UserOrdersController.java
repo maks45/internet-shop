@@ -13,18 +13,18 @@ import mate.academy.internetshop.service.UserService;
 
 public class UserOrdersController extends HttpServlet {
     private static final Long USER_ID = 1L;
-    private static Injector injector = Injector.getInstance("mate.academy.internetshop");
+    private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
     private static OrderService orderService =
-            (OrderService) injector.getInstance(OrderService.class);
-    private static UserService userService
-            = (UserService) injector.getInstance(UserService.class);
+            (OrderService) INJECTOR.getInstance(OrderService.class);
+    private final UserService userService
+            = (UserService) INJECTOR.getInstance(UserService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         List<Order> userOrders = orderService.getUserOrders(userService.get(USER_ID));
-        req.setAttribute("orders",userOrders);
-        req.setAttribute("userId",USER_ID);
+        req.setAttribute("orders", userOrders);
+        req.setAttribute("userId", USER_ID);
         req.getRequestDispatcher("/WEB-INF/views/orders/user.jsp").forward(req,resp);
     }
 }

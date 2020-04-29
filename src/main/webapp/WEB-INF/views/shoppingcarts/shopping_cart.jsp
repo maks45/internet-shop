@@ -13,7 +13,7 @@
 <body>
 <div style="align-content: stretch ; margin: 2%">
 <h1>Shopping cart:</h1>
-<table border="1" class="table table-sm">
+<table border="1" class="table">
     <tr>
         <th>ID</th>
         <th>Name</th>

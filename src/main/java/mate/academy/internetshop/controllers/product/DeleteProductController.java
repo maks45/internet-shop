@@ -9,9 +9,9 @@ import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.service.ProductService;
 
 public class DeleteProductController extends HttpServlet {
-    private static Injector injector = Injector.getInstance("mate.academy.internetshop");
-    private static ProductService productService =
-            (ProductService) injector.getInstance(ProductService.class);
+    private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
+    private final ProductService productService =
+            (ProductService) INJECTOR.getInstance(ProductService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)

@@ -15,7 +15,7 @@
 
     <servlet>
         <servlet-name>allUsers</servlet-name>
-        <servlet-class>mate.academy.internetshop.controllers.user.UserController</servlet-class>
+        <servlet-class>mate.academy.internetshop.controllers.user.GetAllUsersController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>allUsers</servlet-name>
@@ -78,7 +78,7 @@
 
     <servlet>
         <servlet-name>shoppingCartRemoveProduct</servlet-name>
-        <servlet-class>mate.academy.internetshop.controllers.shoppingcart.RemoveProductFromShoppingCart</servlet-class>
+        <servlet-class>mate.academy.internetshop.controllers.shoppingcart.RemoveProductFromShoppingCartController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>shoppingCartRemoveProduct</servlet-name>

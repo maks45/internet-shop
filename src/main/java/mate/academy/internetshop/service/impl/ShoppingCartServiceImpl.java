@@ -22,6 +22,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
+    public ShoppingCart getByUserId(Long userId) {
+        return shoppingCartDao.getByUserId(userId).get();
+    }
+
+    @Override
     public boolean deleteProduct(ShoppingCart shoppingCart, Product product) {
         boolean result = shoppingCart.getProducts()
                 .removeIf(p -> p.getId().equals(product.getId()));

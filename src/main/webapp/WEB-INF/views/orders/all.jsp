@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>All orders:</h1>
-<table border="1">
+<table border="1" class="table">
     <tr>
         <th>ID</th>
         <th>User Login</th>

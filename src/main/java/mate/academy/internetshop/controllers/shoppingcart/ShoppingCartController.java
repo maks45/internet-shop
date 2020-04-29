@@ -9,10 +9,10 @@ import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.service.ShoppingCartService;
 
 public class ShoppingCartController extends HttpServlet {
-    private static Injector injector = Injector.getInstance("mate.academy.internetshop");
-    private static ShoppingCartService shoppingCartService =
-            (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
     private static final Long USER_ID = 1L;
+    private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
+    private final ShoppingCartService shoppingCartService =
+            (ShoppingCartService) INJECTOR.getInstance(ShoppingCartService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
