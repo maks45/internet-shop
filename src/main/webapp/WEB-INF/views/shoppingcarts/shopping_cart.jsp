@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Products</title>
+    <title>Shopping cart</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet"
@@ -11,7 +11,8 @@
           crossorigin="anonymous">
 </head>
 <body>
-<h1>All products:</h1>
+<div style="align-content: stretch ; margin: 2%">
+<h1>Shopping cart:</h1>
 <table border="1" class="table">
     <tr>
         <th>ID</th>
@@ -30,17 +31,22 @@
                 <c:out value="${product.price}"/>
             </td>
             <td>
-
-                <a href="${pageContext.request.contextPath}/addtoshoppingcart?product_id=${product.id}">
-                    Add to shopping cart
-                </a>
+                <form style="align-self: center" action="${pageContext.request.contextPath}/shoppingcarts/removeproduct?product_id=${product.id}">
+                    <button type="submit" class="btn btn-outline-primary">Delete</button>
+                </form>
             </td>
         </tr>
     </c:forEach>
 </table>
-<br/>
-<a href="${pageContext.request.contextPath}/shoppingcart">Go to shopping cart</a>
-<br/>
-<a href="${pageContext.request.contextPath}/">Main page</a>
+<p>
+    <h2 style="color: red">${msg}</h2>
+</p>
+<form action="${pageContext.request.contextPath}/orders/complete">
+    <button type="submit" style="width: 10%" class="btn btn-outline-primary">Complete order</button>
+</form>
+<form action="${pageContext.request.contextPath}/">
+    <button type="submit" style="width: 10%" class="btn btn-outline-primary">Main page</button>
+</form>
+</div>
 </body>
 </html>

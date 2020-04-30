@@ -1,8 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Products</title>
+    <title>Order</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet"
@@ -11,14 +10,15 @@
           crossorigin="anonymous">
 </head>
 <body>
-<h1>All products:</h1>
+<div style="align-content: stretch ; margin: 2%">
+<h1>Order #${order.orderId}:</h1>
 <table border="1" class="table">
     <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Price</th>
     </tr>
-    <c:forEach var="product" items="${products}">
+    <c:forEach var="product" items="${order.products}">
         <tr>
             <td>
                 <c:out value="${product.id}"/>
@@ -29,18 +29,11 @@
             <td>
                 <c:out value="${product.price}"/>
             </td>
-            <td>
-
-                <a href="${pageContext.request.contextPath}/addtoshoppingcart?product_id=${product.id}">
-                    Add to shopping cart
-                </a>
-            </td>
         </tr>
     </c:forEach>
 </table>
-<br/>
-<a href="${pageContext.request.contextPath}/shoppingcart">Go to shopping cart</a>
-<br/>
-<a href="${pageContext.request.contextPath}/">Main page</a>
+<form action="${pageContext.request.contextPath}/">
+    <button type="submit" style="width: 10%" class="btn btn-outline-primary">Main page</button>
+</form>
+</div>
 </body>
-</html>

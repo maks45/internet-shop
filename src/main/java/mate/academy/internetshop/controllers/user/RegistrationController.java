@@ -1,4 +1,4 @@
-package mate.academy.internetshop.controllers;
+package mate.academy.internetshop.controllers.user;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,15 +13,15 @@ import mate.academy.internetshop.service.ShoppingCartService;
 import mate.academy.internetshop.service.UserService;
 
 public class RegistrationController extends HttpServlet {
-    private static Injector injector = Injector.getInstance("mate.academy.internetshop");
-    private static UserService userService = (UserService) injector.getInstance(UserService.class);
-    private static ShoppingCartService shoppingCartService
-            = (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
+    private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
+    private final UserService userService = (UserService) INJECTOR.getInstance(UserService.class);
+    private final ShoppingCartService shoppingCartService
+            = (ShoppingCartService) INJECTOR.getInstance(ShoppingCartService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.getRequestDispatcher("WEB-INF/views/registration.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/views/users/registration.jsp").forward(req, resp);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class RegistrationController extends HttpServlet {
             req.setAttribute("msg", "Password and confirm password must be same!");
             req.setAttribute("login", login);
             req.setAttribute("name", name);
-            req.getRequestDispatcher("WEB-INF/views/registration.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/views/users/registration.jsp").forward(req, resp);
         }
     }
 }

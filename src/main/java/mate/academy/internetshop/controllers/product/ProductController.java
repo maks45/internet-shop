@@ -1,4 +1,4 @@
-package mate.academy.internetshop.controllers;
+package mate.academy.internetshop.controllers.product;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,9 +11,9 @@ import mate.academy.internetshop.model.Product;
 import mate.academy.internetshop.service.ProductService;
 
 public class ProductController extends HttpServlet {
-    private static Injector injector = Injector.getInstance("mate.academy.internetshop");
-    private static ProductService productService =
-            (ProductService) injector.getInstance(ProductService.class);
+    private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
+    private final ProductService productService =
+            (ProductService) INJECTOR.getInstance(ProductService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)

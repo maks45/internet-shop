@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Products</title>
+    <title>Edit products</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet"
@@ -11,7 +11,8 @@
           crossorigin="anonymous">
 </head>
 <body>
-<h1>All products:</h1>
+<div style="align-content: stretch ; margin: 2%">
+<h1>Edit products:</h1>
 <table border="1" class="table">
     <tr>
         <th>ID</th>
@@ -30,17 +31,17 @@
                 <c:out value="${product.price}"/>
             </td>
             <td>
-
-                <a href="${pageContext.request.contextPath}/addtoshoppingcart?product_id=${product.id}">
-                    Add to shopping cart
+                <a href="${pageContext.request.contextPath}/deleteproduct?product_id=${product.id}">
+                    Delete
                 </a>
             </td>
         </tr>
     </c:forEach>
 </table>
 <br/>
-<a href="${pageContext.request.contextPath}/shoppingcart">Go to shopping cart</a>
+<a href="${pageContext.request.contextPath}/addproduct">Add new product</a>
 <br/>
 <a href="${pageContext.request.contextPath}/">Main page</a>
+</div>
 </body>
 </html>

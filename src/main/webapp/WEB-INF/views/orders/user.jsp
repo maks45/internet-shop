@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Products</title>
+    <title>User orders</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet"
@@ -11,36 +11,24 @@
           crossorigin="anonymous">
 </head>
 <body>
-<h1>All products:</h1>
+<h1>All orders for user with id #${userId}:</h1>
 <table border="1" class="table">
     <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Price</th>
+        <th>Order ID</th>
     </tr>
-    <c:forEach var="product" items="${products}">
+    <c:forEach var="order" items="${orders}">
         <tr>
             <td>
-                <c:out value="${product.id}"/>
-            </td>
-            <td>
-                <c:out value="${product.name}"/>
-            </td>
-            <td>
-                <c:out value="${product.price}"/>
-            </td>
-            <td>
-
-                <a href="${pageContext.request.contextPath}/addtoshoppingcart?product_id=${product.id}">
-                    Add to shopping cart
+                <a href= ${pageContext.request.contextPath}/orders/complete?order_id=${order.orderId}>
+                    <c:out value="${order.orderId}"/>
                 </a>
+            </td>
+            <td>
+                <a href="${pageContext.request.contextPath}/orders/delete?order_id="${order.orderId}>Delete</a>
             </td>
         </tr>
     </c:forEach>
 </table>
-<br/>
-<a href="${pageContext.request.contextPath}/shoppingcart">Go to shopping cart</a>
-<br/>
 <a href="${pageContext.request.contextPath}/">Main page</a>
 </body>
 </html>

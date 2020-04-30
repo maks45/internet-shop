@@ -10,7 +10,6 @@ import mate.academy.internetshop.service.ShoppingCartService;
 
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
-
     @Inject
     ShoppingCartDao shoppingCartDao;
 
@@ -20,6 +19,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return shoppingCartDao.getByUserId(shoppingCart.getUser().getId()).isPresent()
                 ? update(shoppingCart)
                 : create(shoppingCart);
+    }
+
+    @Override
+    public ShoppingCart getByUserId(Long userId) {
+        return shoppingCartDao.getByUserId(userId).get();
     }
 
     @Override
