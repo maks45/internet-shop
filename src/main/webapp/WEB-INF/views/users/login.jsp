@@ -11,21 +11,17 @@
 <div style=" display: grid ; width: 100vw; height: 100vh;">
     <div style="align-self: center ; justify-self: center">
     <h2  style=" text-align: center; color: blue">Welcome!</h2>
-    <p>
-    <h7 style=" align-self: center" >Please login or <a href="${pageContext.request.contextPath}/registration">register</a>:</h7>
-    </p>
+    <p style=" align-self: center" >Please login or <a href="${pageContext.request.contextPath}/registration">register</a>:</p>
     <form method="post" style="display: inline-block ;line-height: initial;" action="${pageContext.request.contextPath}/login">
         <div class="form-group" >
             <label for="login">Login</label>
-            <input type="text" minlength="4" class="form-control" id="login">
+            <input type="text" minlength="4" class="form-control" name="login" id="login">
         </div>
         <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password">
+            <input type="password" class="form-control" name="password" id="password">
         </div>
-        <p>
-            <h7 style=" color: red ; text-align: center;">${errorMsg}</h7>
-        </p>
+        <p style=" color: red ; text-align: center;">${errorMsg} </p>
         <button type="submit" class="btn btn-primary">Login</button>
     </form>
     </div>

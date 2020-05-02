@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class LoginController extends HttpServlet {
@@ -28,6 +29,8 @@ public class LoginController extends HttpServlet {
         String password = req.getParameter("password");
         try {
             User user = authenticationService.login(login,password);
+            HttpSession session = req.getSession();
+            session.setAttribute("user_id", user.getId());
         } catch (AuthenticationException e) {
             req.setAttribute("errorMsg", e.getMessage());
             req.getRequestDispatcher("WEB-INF/views/users/login.jsp").forward(req, resp);
