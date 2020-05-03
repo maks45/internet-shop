@@ -1,15 +1,15 @@
 package mate.academy.internetshop.controllers.user;
 
-import mate.academy.internetshop.exceptions.AuthenticationException;
-import mate.academy.internetshop.lib.Injector;
-import mate.academy.internetshop.model.User;
-import mate.academy.internetshop.security.AuthenticationService;
+import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
+import mate.academy.internetshop.exceptions.AuthenticationException;
+import mate.academy.internetshop.lib.Injector;
+import mate.academy.internetshop.model.User;
+import mate.academy.internetshop.security.AuthenticationService;
 
 public class LoginController extends HttpServlet {
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
@@ -36,6 +36,6 @@ public class LoginController extends HttpServlet {
             req.getRequestDispatcher("WEB-INF/views/users/login.jsp").forward(req, resp);
             return;
         }
-        resp.sendRedirect(req.getContextPath()+"/");
+        resp.sendRedirect(req.getContextPath() + "/");
     }
 }

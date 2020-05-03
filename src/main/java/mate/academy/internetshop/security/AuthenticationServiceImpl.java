@@ -7,7 +7,7 @@ import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.UserService;
 
 @Service
-public class AuthenticationServiceImpl implements AuthenticationService{
+public class AuthenticationServiceImpl implements AuthenticationService {
     @Inject
     private UserService userService;
 

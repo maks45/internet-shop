@@ -1,17 +1,16 @@
 package mate.academy.internetshop.web.filters;
 
-import mate.academy.internetshop.lib.Injector;
-import mate.academy.internetshop.service.UserService;
-
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletResponse;
 import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mate.academy.internetshop.lib.Injector;
+import mate.academy.internetshop.service.UserService;
 
 public class AuthenticationFilter implements Filter {
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
@@ -29,15 +28,15 @@ public class AuthenticationFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String url = request.getServletPath();
         if (url.equals("/login") || url.equals("/registration")) {
-            filterChain.doFilter(request,response);
+            filterChain.doFilter(request, response);
             return;
         }
         Long userId = (Long) request.getSession().getAttribute("user_id");
         if (userId == null || userService.get(userId) == null) {
-           response.sendRedirect("/login");
-           return;
+            response.sendRedirect("/login");
+            return;
         }
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
     }
 
     @Override
