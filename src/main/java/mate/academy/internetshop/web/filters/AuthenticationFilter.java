@@ -27,12 +27,12 @@ public class AuthenticationFilter implements Filter {
                          FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        Long userId = (Long) request.getSession().getAttribute("user_id");
         String url = request.getServletPath();
         if (url.equals("/login") || url.equals("/registration")) {
             filterChain.doFilter(request,response);
             return;
         }
+        Long userId = (Long) request.getSession().getAttribute("user_id");
         if (userId == null || userService.get(userId) == null) {
            response.sendRedirect("/login");
            return;
