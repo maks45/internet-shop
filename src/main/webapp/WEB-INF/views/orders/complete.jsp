@@ -11,7 +11,8 @@
 </head>
 <body>
 <div style="align-content: stretch ; margin: 2%">
-<h1>Order #${order.orderId}:</h1>
+    <jsp:include page="../header.jsp" />
+<h2>Order #${order.orderId}:</h2>
 <table border="1" class="table">
     <tr>
         <th>ID</th>
@@ -32,8 +33,5 @@
         </tr>
     </c:forEach>
 </table>
-<form action="${pageContext.request.contextPath}/">
-    <button type="submit" style="width: 10%" class="btn btn-outline-primary">Main page</button>
-</form>
 </div>
 </body>

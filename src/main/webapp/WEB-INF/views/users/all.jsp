@@ -12,7 +12,8 @@
 </head>
 <body>
 <div align= "left" style="align-content: stretch ; margin: 2%">
-<h1>All users:</h1>
+<jsp:include page="../header.jsp" />
+<h2>All users:</h2>
 <table border="1" class="table">
     <thead class="thead-dark">
     <tr>
@@ -41,9 +42,6 @@
         </tr>
     </c:forEach>
 </table>
-    <form action="${pageContext.request.contextPath}/">
-        <button type="submit" style="width: 10%" class="btn btn-outline-primary">Main page</button>
-    </form>
 </div>
 </body>
 </html>

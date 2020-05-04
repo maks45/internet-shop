@@ -11,6 +11,7 @@
 </head>
 <body>
 <div style="align-content: stretch ; margin: 2%">
+    <jsp:include page="../header.jsp" />
 <h2>Add new product</h2>
 <form method="post" action="${pageContext.request.contextPath}/addproduct">
     Product Name:
@@ -26,9 +27,6 @@
     </label>
     <br/>
     <button type="submit" style="width: 10%" class="btn btn-outline-primary">Add product</button>
-</form>
-<form action="${pageContext.request.contextPath}/">
-    <button type="submit" style="width: 10%" class="btn btn-outline-primary">Main page</button>
 </form>
 </div>
 </body>

@@ -12,7 +12,8 @@
 </head>
 <body>
 <div style="align-content: stretch ; margin: 2%">
-<h1>Shopping cart:</h1>
+    <jsp:include page="../header.jsp" />
+<h2>Shopping cart:</h2>
 <table border="1" class="table">
     <tr>
         <th>ID</th>
@@ -43,9 +44,6 @@
 </p>
 <form action="${pageContext.request.contextPath}/orders/complete">
     <button type="submit" style="width: 10%" class="btn btn-outline-primary">Complete order</button>
-</form>
-<form action="${pageContext.request.contextPath}/">
-    <button type="submit" style="width: 10%" class="btn btn-outline-primary">Main page</button>
 </form>
 </div>
 </body>

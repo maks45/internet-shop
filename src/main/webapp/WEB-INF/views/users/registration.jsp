@@ -7,40 +7,35 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
 </head>
-<div align= "left" style="align-content: stretch ; margin: 2%">
-<h2>Registration user</h2>
-<form method="post" action="${pageContext.request.contextPath}/registration">
-    Name:
-    <br/>
-    <label>
-        <input type="text" name="name" value="${name}">
-    </label>
-    <br/>
-    Login:
-    <br/>
-    <label>
-        <input type="text" name="login" value="${login}">
-    </label>
-    <br/>
-    Password:
-    <br/>
-    <label>
-        <input type="password" name="pwd">
-    </label>
-    <br/>
-    Confirm password:
-    <br/>
-    <label>
-        <input type="password" name="pwd-confirm">
-    </label>
-    <br/>
-    <h7 style="color: red">${msg}</h7>
-    <br/>
-    <button type="submit" style="width: 10%" class="btn btn-outline-primary">Register</button>
-</form>
-    <form action="${pageContext.request.contextPath}/">
-        <button type="submit" style="width: 10%" class="btn btn-outline-primary">Main page</button>
-    </form>
+<div align="left" style="align-content: stretch ; margin: 2%">
+    <div style=" display: grid ; width: 100vw; height: 100vh;">
+        <div style="align-self: center ; justify-self: center">
+            <h2 style=" text-align: center; color: blue">Welcome!</h2>
+            <p style=" align-self: center">Please register or <a href="${pageContext.request.contextPath}/login">login</a>:
+            </p>
+            <form method="post" style="display: inline-block ;line-height: initial;"
+                  action="${pageContext.request.contextPath}/registration">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" required minlength="2" class="form-control" value="${name}" name="name" id="name">
+                </div>
+                <div class="form-group">
+                    <label for="login">Login</label>
+                    <input type="text" required minlength="4" class="form-control" value="${login}" name="login" id="login">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" required minlength="4" class="form-control" name="pwd" id="password">
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm password</label>
+                    <input type="password" required maxlength="4" class="form-control" name="pwd-confirm" id="confirm-password">
+                </div>
+                <p style=" color: red ; text-align: center;">${msg}</p>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>

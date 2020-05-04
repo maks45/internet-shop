@@ -12,7 +12,8 @@
 </head>
 <body>
 <div style="align-content: stretch ; margin: 2%">
-<h1>Edit products:</h1>
+    <jsp:include page="../header.jsp" />
+<h2>Edit products:</h2>
 <table border="1" class="table">
     <tr>
         <th>ID</th>
@@ -40,8 +41,6 @@
 </table>
 <br/>
 <a href="${pageContext.request.contextPath}/addproduct">Add new product</a>
-<br/>
-<a href="${pageContext.request.contextPath}/">Main page</a>
 </div>
 </body>
 </html>
