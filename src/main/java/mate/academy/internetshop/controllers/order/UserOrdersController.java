@@ -22,7 +22,9 @@ public class UserOrdersController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        Long userId = Long.valueOf(req.getParameter(USER_ID));
+        Long userId = req.getParameter(USER_ID) == null
+                ? (Long) req.getSession().getAttribute(USER_ID)
+                : Long.valueOf(req.getParameter(USER_ID));
         List<Order> userOrders = orderService.getUserOrdersByUserId(userId);
         req.setAttribute("orders", userOrders);
         req.setAttribute("user", userService.get(userId));
