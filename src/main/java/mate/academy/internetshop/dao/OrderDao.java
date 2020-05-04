@@ -6,4 +6,6 @@ import mate.academy.internetshop.model.User;
 
 public interface OrderDao extends GenericDao<Order, Long> {
     List<Order> getUserOrders(User user);
+
+    List<Order> getUserOrdersByUserId(Long userId);
 }

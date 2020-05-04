@@ -12,7 +12,7 @@ import mate.academy.internetshop.service.OrderService;
 import mate.academy.internetshop.service.ShoppingCartService;
 
 public class OrderController extends HttpServlet {
-    private static final Long USER_ID = 1L;
+    private static final String USER_ID = "user_id";
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
     private final OrderService orderService =
             (OrderService) INJECTOR.getInstance(OrderService.class);
@@ -23,8 +23,9 @@ public class OrderController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         String orderId = req.getParameter("order_id");
+        Long userId = (Long) req.getSession().getAttribute(USER_ID);
         if (orderId == null
-                && shoppingCartService.getByUserId(USER_ID).getProducts().size() == 0) {
+                && shoppingCartService.getByUserId(userId).getProducts().size() == 0) {
             req.setAttribute("msg", "Can't create order with empty shopping cart!");
             req.getRequestDispatcher("/WEB-INF/views/shoppingcarts/shopping_cart.jsp")
                     .forward(req,resp);
@@ -33,7 +34,7 @@ public class OrderController extends HttpServlet {
         if (orderId != null) {
             order = orderService.get(Long.parseLong(orderId));
         } else {
-            ShoppingCart shoppingCart = shoppingCartService.getByUserId(USER_ID);
+            ShoppingCart shoppingCart = shoppingCartService.getByUserId(userId);
             order = orderService.completeOrder(
                  shoppingCartService.getAllProducts(shoppingCart),
                  shoppingCart.getUser());

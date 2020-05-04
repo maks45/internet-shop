@@ -36,6 +36,13 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public List<Order> getUserOrdersByUserId(Long userId) {
+        return Storage.orders.stream()
+                .filter(order -> order.getUser().getId().equals(userId))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Optional<Order> get(Long id) {
         return Storage.orders.stream()
                 .filter(order -> order.getOrderId().equals(id))
