@@ -32,7 +32,7 @@
                 <c:out value="${product.price}"/>
             </td>
             <td>
-                <a href="${pageContext.request.contextPath}/deleteproduct?product_id=${product.id}">
+                <a href="${pageContext.request.contextPath}/products/delete?product_id=${product.id}">
                     Delete
                 </a>
             </td>
@@ -40,7 +40,7 @@
     </c:forEach>
 </table>
 <br/>
-<a href="${pageContext.request.contextPath}/addproduct">Add new product</a>
+<a href="${pageContext.request.contextPath}/products/add">Add new product</a>
 </div>
 </body>
 </html>

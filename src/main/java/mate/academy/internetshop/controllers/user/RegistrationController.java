@@ -35,7 +35,7 @@ public class RegistrationController extends HttpServlet {
                 && userService.findByLogin(login).isEmpty()) {
             User user = userService.create(new User(name, login, password));
             shoppingCartService.create(new ShoppingCart(new ArrayList<>(), user));
-            resp.sendRedirect(req.getContextPath() + "/login");
+            resp.sendRedirect(req.getContextPath() + "/users/login");
         } else {
             req.setAttribute("msg", "Password and confirm password must be same!");
             req.setAttribute("login", login);

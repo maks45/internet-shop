@@ -37,7 +37,7 @@
                 <a href="${pageContext.request.contextPath}/orders/user?user_id=${user.id}">Show orders</a>
             </td>
             <td>
-                <a href="${pageContext.request.contextPath}/deleteUser?user_id=${user.id}">Delete</a>
+                <a href="${pageContext.request.contextPath}/users/delete?user_id=${user.id}">Delete</a>
             </td>
         </tr>
     </c:forEach>

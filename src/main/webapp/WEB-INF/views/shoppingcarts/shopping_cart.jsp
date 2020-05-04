@@ -32,7 +32,7 @@
                 <c:out value="${product.price}"/>
             </td>
             <td>
-                <form style="align-self: center" action="${pageContext.request.contextPath}/shoppingcarts/removeproduct?product_id=${product.id}">
+                <form style="align-self: center" action="${pageContext.request.contextPath}/users/shopping-cart/remove?product_id=${product.id}">
                     <button type="submit" class="btn btn-outline-primary">Delete</button>
                 </form>
             </td>

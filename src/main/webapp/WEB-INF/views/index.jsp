@@ -14,7 +14,7 @@
     <jsp:include page="header.jsp" />
     <br/>
     <div style="width: auto">
-        <form action="${pageContext.request.contextPath}/registration">
+        <form action="${pageContext.request.contextPath}/users/registration">
             <button  style="width: 10%" type="submit" class="btn btn-outline-primary">Registration</button>
         </form>
 
@@ -27,7 +27,7 @@
         <form action="${pageContext.request.contextPath}/users/all">
             <button type="submit" style="width: 10%" class="btn btn-outline-primary">All users</button>
         </form>
-        <form action="${pageContext.request.contextPath}/shoppingcart">
+        <form action="${pageContext.request.contextPath}/users/shopping-cart">
             <button type="submit" style="width: 10%" class="btn btn-outline-primary">Shopping cart</button>
         </form>
     </div>

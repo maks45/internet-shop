@@ -11,8 +11,8 @@
 <div style=" display: grid ; width: 100vw; height: 100vh;">
     <div style="align-self: center ; justify-self: center">
     <h2  style=" text-align: center; color: blue">Welcome!</h2>
-    <p style=" align-self: center" >Please login or <a href="${pageContext.request.contextPath}/registration">register</a>:</p>
-    <form method="post" style="display: inline-block ;line-height: initial;" action="${pageContext.request.contextPath}/login">
+    <p style=" align-self: center" >Please login or <a href="${pageContext.request.contextPath}/users/registration">register</a>:</p>
+    <form method="post" style="display: inline-block ;line-height: initial;" action="${pageContext.request.contextPath}/users/login">
         <div class="form-group" >
             <label for="login">Login</label>
             <input type="text" minlength="4" class="form-control" name="login" id="login">
