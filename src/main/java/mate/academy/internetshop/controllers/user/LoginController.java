@@ -30,7 +30,7 @@ public class LoginController extends HttpServlet {
         String password = req.getParameter("password");
         User user;
         try {
-            user = authenticationService.login(login,password);
+            user = authenticationService.login(login, password);
             HttpSession session = req.getSession();
             session.setAttribute(USER_ID, user.getId());
         } catch (AuthenticationException e) {

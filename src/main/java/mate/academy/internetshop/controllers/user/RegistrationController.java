@@ -32,8 +32,8 @@ public class RegistrationController extends HttpServlet {
         String password = req.getParameter("pwd");
         String confirmPassword = req.getParameter("pwd-confirm");
         if (password.equals(confirmPassword)
-            && userService.findByLogin(login).isEmpty()) {
-            User user = userService.create(new User(name,login,password));
+                && userService.findByLogin(login).isEmpty()) {
+            User user = userService.create(new User(name, login, password));
             shoppingCartService.create(new ShoppingCart(new ArrayList<>(), user));
             resp.sendRedirect(req.getContextPath() + "/login");
         } else {

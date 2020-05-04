@@ -28,7 +28,7 @@ public class OrderController extends HttpServlet {
                 && shoppingCartService.getByUserId(userId).getProducts().size() == 0) {
             req.setAttribute("msg", "Can't create order with empty shopping cart!");
             req.getRequestDispatcher("/WEB-INF/views/shoppingcarts/shopping_cart.jsp")
-                    .forward(req,resp);
+                    .forward(req, resp);
         }
         Order order;
         if (orderId != null) {
@@ -36,10 +36,10 @@ public class OrderController extends HttpServlet {
         } else {
             ShoppingCart shoppingCart = shoppingCartService.getByUserId(userId);
             order = orderService.completeOrder(
-                 shoppingCartService.getAllProducts(shoppingCart),
-                 shoppingCart.getUser());
+                    shoppingCartService.getAllProducts(shoppingCart),
+                    shoppingCart.getUser());
         }
         req.setAttribute("order", order);
-        req.getRequestDispatcher("/WEB-INF/views/orders/complete.jsp").forward(req,resp);
+        req.getRequestDispatcher("/WEB-INF/views/orders/complete.jsp").forward(req, resp);
     }
 }
