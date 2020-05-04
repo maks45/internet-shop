@@ -12,7 +12,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
         </ul>
-        <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/shoppingcart" role="button">Shopping cart</a>
+        <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/users/shopping-cart" role="button">Shopping cart</a>
     </div>
 </header>
 </body>

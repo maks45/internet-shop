@@ -16,7 +16,7 @@
     <c:forEach var="order" items="${orders}">
         <tr>
             <td>
-            <a href="${pageContext.request.contextPath}/order?order_id=${order.id}">
+            <a href="${pageContext.request.contextPath}/orders/?order_id=${order.id}">
                 <c:out value="${order.id}"/>
             </a>
             </td>
@@ -24,7 +24,7 @@
                 <c:out value="${order.user.login}"/>
             </td>
             <td>
-                <a href="${pageContext.request.contextPath}/addtoshoppingcart?product_id=${product.id}">
+                <a href="${pageContext.request.contextPath}/user/shopping-cart/add?product_id=${product.id}">
                     Add to shopping cart
                 </a>
             </td>
@@ -32,7 +32,7 @@
     </c:forEach>
 </table>
 <br/>
-<a href="${pageContext.request.contextPath}/shoppingcart">Go to shopping cart</a>
+<a href="${pageContext.request.contextPath}/user/shopping-cart">Go to shopping cart</a>
 </div>
 </body>
 </html>

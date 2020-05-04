@@ -10,7 +10,7 @@ import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Product;
 import mate.academy.internetshop.service.ProductService;
 
-public class ProductController extends HttpServlet {
+public class GetAllProductsController extends HttpServlet {
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
     private final ProductService productService =
             (ProductService) INJECTOR.getInstance(ProductService.class);
@@ -21,11 +21,5 @@ public class ProductController extends HttpServlet {
         List<Product> allProducts = productService.getAll();
         req.setAttribute("products", allProducts);
         req.getRequestDispatcher("/WEB-INF/views/products/all.jsp").forward(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-
     }
 }

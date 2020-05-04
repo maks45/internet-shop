@@ -13,7 +13,7 @@
 <div style="align-content: stretch ; margin: 2%">
     <jsp:include page="../header.jsp" />
 <h2>Add new product</h2>
-<form method="post" action="${pageContext.request.contextPath}/addproduct">
+<form method="post" action="${pageContext.request.contextPath}/products/add">
     Product Name:
     <br/>
     <label>

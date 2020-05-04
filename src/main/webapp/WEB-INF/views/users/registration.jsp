@@ -11,10 +11,10 @@
     <div style=" display: grid ; width: 100vw; height: 100vh;">
         <div style="align-self: center ; justify-self: center">
             <h2 style=" text-align: center; color: blue">Welcome!</h2>
-            <p style=" align-self: center">Please register or <a href="${pageContext.request.contextPath}/login">login</a>:
+            <p style=" align-self: center">Please register or <a href="${pageContext.request.contextPath}/users/login">login</a>:
             </p>
             <form method="post" style="display: inline-block ;line-height: initial;"
-                  action="${pageContext.request.contextPath}/registration">
+                  action="${pageContext.request.contextPath}/users/registration">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" required minlength="2" class="form-control" value="${name}" name="name" id="name">
