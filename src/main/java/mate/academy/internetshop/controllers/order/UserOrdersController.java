@@ -1,15 +1,15 @@
 package mate.academy.internetshop.controllers.order;
 
-import mate.academy.internetshop.lib.Injector;
-import mate.academy.internetshop.model.Order;
-import mate.academy.internetshop.service.OrderService;
-import mate.academy.internetshop.service.UserService;
+import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
+import mate.academy.internetshop.lib.Injector;
+import mate.academy.internetshop.model.Order;
+import mate.academy.internetshop.service.OrderService;
+import mate.academy.internetshop.service.UserService;
 
 public class UserOrdersController extends HttpServlet {
     private static final String USER_ID = "user_id";
