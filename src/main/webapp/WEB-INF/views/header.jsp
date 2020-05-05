@@ -13,6 +13,7 @@
         <ul class="navbar-nav mr-auto">
         </ul>
         <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/users/shopping-cart" role="button">Shopping cart</a>
+        <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/users/logout" role="button">Logout</a>
     </div>
 </header>
 </body>

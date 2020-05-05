@@ -139,6 +139,15 @@
         <url-pattern>/users/login</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>mate.academy.internetshop.controllers.user.LogoutController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/users/logout</url-pattern>
+    </servlet-mapping>
+
     <filter>
         <filter-name>authenticationFilter</filter-name>
         <filter-class>mate.academy.internetshop.web.filters.AuthenticationFilter</filter-class>
