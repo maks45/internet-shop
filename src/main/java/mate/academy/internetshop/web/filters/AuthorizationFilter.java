@@ -1,21 +1,21 @@
 package mate.academy.internetshop.web.filters;
 
-import mate.academy.internetshop.lib.Injector;
-import mate.academy.internetshop.model.Role;
-import mate.academy.internetshop.model.User;
-import mate.academy.internetshop.service.UserService;
-import javax.servlet.ServletException;
-import javax.servlet.Filter;
-import javax.servlet.FilterConfig;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletResponse;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import mate.academy.internetshop.lib.Injector;
+import mate.academy.internetshop.model.Role;
+import mate.academy.internetshop.model.User;
+import mate.academy.internetshop.service.UserService;
 
 public class AuthorizationFilter implements Filter {
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
@@ -26,6 +26,8 @@ public class AuthorizationFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         protectedUrls.put("/users/all", Set.of(Role.RoleName.ADMIN));
         protectedUrls.put("/products/edit", Set.of(Role.RoleName.ADMIN));
+        protectedUrls.put("/products/create", Set.of(Role.RoleName.ADMIN));
+        protectedUrls.put("/products/delete", Set.of(Role.RoleName.ADMIN));
         protectedUrls.put("/orders/show", Set.of(Role.RoleName.ADMIN));
     }
 
@@ -39,7 +41,7 @@ public class AuthorizationFilter implements Filter {
         String requestedUrl = req.getServletPath();
         Long userId = (Long) req.getSession().getAttribute("user_id");
         if (protectedUrls.get(requestedUrl) != null
-            && !isAuthorized(userService.get(userId), protectedUrls.get(requestedUrl))) {
+                && !isAuthorized(userService.get(userId), protectedUrls.get(requestedUrl))) {
             req.getRequestDispatcher("/WEB-INF/views/access_denied.jsp").forward(req, resp);
             return;
         }

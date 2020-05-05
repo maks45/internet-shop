@@ -3,7 +3,6 @@ package mate.academy.internetshop;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Set;
-
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Order;
 import mate.academy.internetshop.model.Product;
