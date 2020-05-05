@@ -131,12 +131,21 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>ordersCurrentUser</servlet-name>
+        <servlet-class>mate.academy.internetshop.controllers.order.CurrentUserOrdersController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ordersCurrentUser</servlet-name>
+        <url-pattern>/orders/user</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ordersByUser</servlet-name>
         <servlet-class>mate.academy.internetshop.controllers.order.UserOrdersController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ordersByUser</servlet-name>
-        <url-pattern>/orders/user</url-pattern>
+        <url-pattern>/orders/get-by-user</url-pattern>
     </servlet-mapping>
 
     <servlet>
