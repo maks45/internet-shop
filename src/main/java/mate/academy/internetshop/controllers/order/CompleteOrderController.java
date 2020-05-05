@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import mate.academy.internetshop.lib.Injector;
 import mate.academy.internetshop.model.Order;
 import mate.academy.internetshop.model.ShoppingCart;
@@ -22,24 +23,17 @@ public class CompleteOrderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String orderId = req.getParameter("order_id");
         Long userId = (Long) req.getSession().getAttribute(USER_ID);
-        if (orderId == null
-                && shoppingCartService.getByUserId(userId).getProducts().size() == 0) {
+        ShoppingCart shoppingCart = shoppingCartService.getByUserId(userId);
+        if (shoppingCart.getProducts().isEmpty()) {
             req.setAttribute("msg", "Can't create order with empty shopping cart!");
             req.getRequestDispatcher("/WEB-INF/views/shoppingcarts/shopping_cart.jsp")
                     .forward(req, resp);
         }
-        Order order;
-        if (orderId != null) {
-            order = orderService.get(Long.parseLong(orderId));
-        } else {
-            ShoppingCart shoppingCart = shoppingCartService.getByUserId(userId);
-            order = orderService.completeOrder(
-                    shoppingCartService.getAllProducts(shoppingCart),
-                    shoppingCart.getUser());
-        }
-        req.setAttribute("order", order);
-        req.getRequestDispatcher("/WEB-INF/views/orders/complete.jsp").forward(req, resp);
+        Order order = orderService.completeOrder(
+                shoppingCart.getProducts(),
+                shoppingCart.getUser());
+        req.setAttribute("order_id", order);
+        req.getRequestDispatcher("/WEB-INF/views/orders/show.jsp").forward(req, resp);
     }
 }

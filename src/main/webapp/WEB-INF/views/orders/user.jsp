@@ -21,14 +21,17 @@
     <c:forEach var="order" items="${orders}">
         <tr>
             <td>
-                <a href= ${pageContext.request.contextPath}/orders/complete?order_id=${order.orderId}>
+                <a href= ${pageContext.request.contextPath}/orders/show?order_id=${order.orderId}>
                     <c:out value="${order.orderId}"/>
                 </a>
             </td>
+            <c:if  test="${user.role.toString() == \"ADMIN\"}">
             <td>
                 <a href="${pageContext.request.contextPath}/orders/delete?order_id="${order.orderId}>Delete</a>
             </td>
+            </c:if>
         </tr>
+
     </c:forEach>
 </table>
 </div>

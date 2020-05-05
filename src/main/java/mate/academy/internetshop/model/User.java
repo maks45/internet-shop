@@ -1,17 +1,28 @@
 package mate.academy.internetshop.model;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class User {
     private Long id;
     private String name;
     private String login;
     private String password;
+    private Set<Role> roles;
 
-    public User(String name, String login, String password) {
+    public User(String name, String login, String password, Set<Role> roles) {
         this.name = name;
         this.login = login;
         this.password = password;
+        this.roles = roles;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public Long getId() {
