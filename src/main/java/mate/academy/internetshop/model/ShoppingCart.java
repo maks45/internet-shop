@@ -6,11 +6,11 @@ import java.util.Objects;
 public class ShoppingCart {
     private Long id;
     private List<Product> products;
-    private User user;
+    private Long userId;
 
-    public ShoppingCart(List<Product> products, User user) {
+    public ShoppingCart(List<Product> products, Long userId) {
         this.products = products;
-        this.user = user;
+        this.userId = userId;
     }
 
     public List<Product> getProducts() {
@@ -29,12 +29,12 @@ public class ShoppingCart {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Long userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -48,12 +48,12 @@ public class ShoppingCart {
         ShoppingCart shoppingCart = (ShoppingCart) o;
         return products.equals(shoppingCart.products)
                 && id.equals(shoppingCart.id)
-                && user.equals(shoppingCart.user);
+                && userId.equals(shoppingCart.userId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(products, id, user);
+        return Objects.hash(products, id, userId);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class ShoppingCart {
         return "Bucket{"
                 + "items=" + products
                 + ", id=" + id
-                + ", user=" + user
+                + ", user=" + userId
                 + '}';
     }
 }

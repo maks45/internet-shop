@@ -32,13 +32,12 @@
                 <c:out value="${product.price}"/>
             </td>
             <td>
-                <form style="align-self: center" action="${pageContext.request.contextPath}/users/shopping-cart/remove?product_id=${product.id}">
-                    <button type="submit" class="btn btn-outline-primary">Delete</button>
-                </form>
+                <a href="${pageContext.request.contextPath}/users/shopping-cart/remove?product_id=${product.id}">Delete</a>
             </td>
         </tr>
     </c:forEach>
 </table>
+
 <p>
     <h2 style="color: red">${msg}</h2>
 </p>

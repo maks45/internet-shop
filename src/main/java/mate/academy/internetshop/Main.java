@@ -30,7 +30,7 @@ public class Main {
         ShoppingCartService shoppingCartService = (ShoppingCartService) injector
                 .getInstance(ShoppingCartService.class);
         ShoppingCart shoppingCart = shoppingCartService
-                .addProduct(new ShoppingCart(new ArrayList<>(), user), product1);
+                .addProduct(new ShoppingCart(new ArrayList<>(), user.getId()), product1);
         shoppingCartService.deleteProduct(shoppingCart, product1);
         shoppingCartService.addProduct(shoppingCart, product2);
         productService.delete(product2.getId());

@@ -25,7 +25,8 @@ public class AuthorizationFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         protectedUrls.put("/users/all", Set.of(Role.RoleName.ADMIN));
-        protectedUrls.put("/orders/complete", Set.of(Role.RoleName.USER));
+        protectedUrls.put("/products/edit", Set.of(Role.RoleName.ADMIN));
+        protectedUrls.put("/orders/show", Set.of(Role.RoleName.ADMIN));
     }
 
     @Override
@@ -36,16 +37,13 @@ public class AuthorizationFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         String requestedUrl = req.getServletPath();
-        if (protectedUrls.get(requestedUrl) == null) {
-            filterChain.doFilter(servletRequest, servletResponse);
+        Long userId = (Long) req.getSession().getAttribute("user_id");
+        if (protectedUrls.get(requestedUrl) != null
+            && !isAuthorized(userService.get(userId), protectedUrls.get(requestedUrl))) {
+            req.getRequestDispatcher("/WEB-INF/views/access_denied.jsp").forward(req, resp);
             return;
         }
-        Long userId = (Long) req.getSession().getAttribute("user_id");
-        if (isAuthorized(userService.get(userId), protectedUrls.get(requestedUrl))) {
-            filterChain.doFilter(req, resp);
-        } else {
-            req.getRequestDispatcher("/WEB-INF/views/access_denied.jsp").forward(req, resp);
-        }
+        filterChain.doFilter(req, resp);
     }
 
     @Override
@@ -54,13 +52,9 @@ public class AuthorizationFilter implements Filter {
     }
 
     private boolean isAuthorized(User user, Set<Role.RoleName> authorizedRoles) {
-        for (Role.RoleName authorizedRole : authorizedRoles) {
-            for (Role role : user.getRoles()) {
-                if (authorizedRole.equals(role.getRoleName())) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return authorizedRoles.stream().anyMatch(
+                roleName -> user.getRoles().stream()
+                        .map(Role::getRoleName)
+                        .anyMatch(roleName::equals));
     }
 }

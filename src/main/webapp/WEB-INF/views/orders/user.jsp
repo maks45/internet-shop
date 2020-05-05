@@ -13,6 +13,7 @@
 <body>
 <div style="align-content: stretch ; margin: 2%">
 <jsp:include page="../header.jsp" />
+<%@ page import="mate.academy.internetshop.model.Role" %>
 <h2>All orders for user - name: ${user.name}, login: ${user.login}, id: ${user.id}:</h2>
 <table border="1" class="table">
     <tr>
@@ -25,7 +26,7 @@
                     <c:out value="${order.orderId}"/>
                 </a>
             </td>
-            <c:if  test="${user.role.toString() == \"ADMIN\"}">
+            <c:if  test="${user.roles.contains(Role.of(\"ADMIN\"))}">
             <td>
                 <a href="${pageContext.request.contextPath}/orders/delete?order_id="${order.orderId}>Delete</a>
             </td>
