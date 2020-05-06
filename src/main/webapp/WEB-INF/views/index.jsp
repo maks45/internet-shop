@@ -17,7 +17,9 @@
         <form action="${pageContext.request.contextPath}/users/registration">
             <button  style="width: 10%" type="submit" class="btn btn-outline-primary">Registration</button>
         </form>
-
+        <form action="${pageContext.request.contextPath}/orders/user">
+            <button type="submit" style="width: 10%" class="btn btn-outline-primary">My orders</button>
+        </form>
         <form action="${pageContext.request.contextPath}/products/edit">
             <button type="submit" style="width: 10%" class="btn btn-outline-primary">Edit products</button>
         </form>

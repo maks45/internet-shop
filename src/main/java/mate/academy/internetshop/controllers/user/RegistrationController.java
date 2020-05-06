@@ -2,11 +2,13 @@ package mate.academy.internetshop.controllers.user;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mate.academy.internetshop.lib.Injector;
+import mate.academy.internetshop.model.Role;
 import mate.academy.internetshop.model.ShoppingCart;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.ShoppingCartService;
@@ -21,7 +23,7 @@ public class RegistrationController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.getRequestDispatcher("WEB-INF/views/users/registration.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/users/registration.jsp").forward(req, resp);
     }
 
     @Override
@@ -33,8 +35,9 @@ public class RegistrationController extends HttpServlet {
         String confirmPassword = req.getParameter("pwd-confirm");
         if (password.equals(confirmPassword)
                 && userService.findByLogin(login).isEmpty()) {
-            User user = userService.create(new User(name, login, password));
-            shoppingCartService.create(new ShoppingCart(new ArrayList<>(), user));
+            User user = userService.create(new User(name, login, password,
+                    Set.of(Role.of("USER"))));
+            shoppingCartService.create(new ShoppingCart(new ArrayList<>(), user.getId()));
             resp.sendRedirect(req.getContextPath() + "/users/login");
         } else {
             req.setAttribute("msg", "Password and confirm password must be same!");

@@ -34,7 +34,7 @@
                 <c:out value="${user.login}"/>
             </td>
             <td>
-                <a href="${pageContext.request.contextPath}/orders/user?user_id=${user.id}">Show orders</a>
+                <a href="${pageContext.request.contextPath}/orders/get-by-user?user_id=${user.id}">Show orders</a>
             </td>
             <td>
                 <a href="${pageContext.request.contextPath}/users/delete?user_id=${user.id}">Delete</a>
