@@ -48,11 +48,8 @@ public class AuthorizationFilter implements Filter {
         Long userId = (Long) req.getSession().getAttribute("user_id");
         if (protectedUrls.get(requestedUrl) != null
                 && !isAuthorized(userService.get(userId), protectedUrls.get(requestedUrl))) {
-            LOGGER.warn("user with id: "
-                    + userId
-                    + " try get access to "
-                    + requestedUrl
-                    + " access denied");
+            LOGGER.warn("user with id: " + userId + " try get access to "
+                    + requestedUrl + " access denied");
             req.getRequestDispatcher("/WEB-INF/views/access_denied.jsp").forward(req, resp);
             return;
         }
