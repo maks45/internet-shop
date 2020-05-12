@@ -5,12 +5,9 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 import mate.academy.internetshop.dao.ProductDao;
 import mate.academy.internetshop.db.Storage;
-import mate.academy.internetshop.lib.Dao;
 import mate.academy.internetshop.model.Product;
 
-@Dao
 public class ProductDaoImpl implements ProductDao {
-
     @Override
     public Product create(Product product) {
         return Storage.addProduct(product);
@@ -27,8 +24,8 @@ public class ProductDaoImpl implements ProductDao {
     public Product update(Product product) {
         return Storage.products.set(
                 IntStream.range(0, Storage.products.size())
-                .filter(i -> Storage.products.get(i).getId().equals(product.getId()))
-                .findFirst().getAsInt(),
+                        .filter(i -> Storage.products.get(i).getId().equals(product.getId()))
+                        .findFirst().getAsInt(),
                 product);
     }
 
