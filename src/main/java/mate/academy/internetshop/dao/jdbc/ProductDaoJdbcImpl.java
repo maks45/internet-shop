@@ -27,15 +27,12 @@ public class ProductDaoJdbcImpl implements ProductDao {
                     .prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, product.getName());
             preparedStatement.setBigDecimal(2, product.getPrice());
-            if (preparedStatement.executeUpdate() > 0) {
-                ResultSet resultSet = preparedStatement.getGeneratedKeys();
-                resultSet.next();
-                product.setId(resultSet.getLong(1));
-            } else {
-                LOGGER.warn("Can't create product");
-            }
+            preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            resultSet.next();
+            product.setId(resultSet.getLong(1));
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't create product " + e);
+            throw new DataProcessingException("Can't create product ", e);
         }
         return product;
     }
@@ -52,7 +49,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
                 LOGGER.warn("Can't update product with id: " + product.getId());
             }
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't update product " + e);
+            throw new DataProcessingException("Can't update product ", e);
         }
         return product;
     }
@@ -67,7 +64,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
             resultSet.next();
             return Optional.of(getProductFromResultSet(resultSet));
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't get product with id: " + id + e);
+            throw new DataProcessingException("Can't get product with id: " + id, e);
         }
     }
 
@@ -83,7 +80,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
             }
             return products;
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't get all products: " + e);
+            throw new DataProcessingException("Can't get all products: ", e);
         }
     }
 
@@ -100,7 +97,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
             preparedStatement.setLong(1, id);
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't create product " + e);
+            throw new DataProcessingException("Can't create product ", e);
         }
     }
 
