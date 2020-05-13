@@ -91,26 +91,27 @@ public class ProductDaoJdbcImpl implements ProductDao {
 
     @Override
     public boolean delete(Long id) {
-        String query = "DELETE FROM products WHERE product_id= ?;";
-        String deleteFromShoppingCartProductsQuery = "DELETE FROM shopping_cart_products "
-                + "WHERE product_id= ?;";
-        String deleteFromOrdersProductsQuery = "DELETE FROM orders_products "
-                + "WHERE product_id= ?;";
+        String[] queries = new String[]{
+                "DELETE FROM shopping_cart_products WHERE product_id= ?;",
+                "DELETE FROM orders_products WHERE product_id= ?;",
+                "DELETE FROM products WHERE product_id= ?;"};
         try (Connection connection = ConnectionUtil.getConnection()) {
-            PreparedStatement deleteFromShoppingCartProductsStatement = connection
-                    .prepareStatement(deleteFromShoppingCartProductsQuery);
-            deleteFromShoppingCartProductsStatement.setLong(1, id);
-            deleteFromShoppingCartProductsStatement.executeUpdate();
-            PreparedStatement deleteFromOrdersProductsStatement = connection
-                    .prepareStatement(deleteFromOrdersProductsQuery);
-            deleteFromOrdersProductsStatement.setLong(1, id);
-            deleteFromOrdersProductsStatement.executeUpdate();
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setLong(1, id);
-            return preparedStatement.executeUpdate() == 1;
+            return deleteProduct(id, queries, connection);
         } catch (SQLException e) {
             throw new DataProcessingException("Can't delete product id: " + id, e);
         }
+    }
+
+    private boolean deleteProduct(Long id, String[] queries, Connection connection)
+            throws SQLException {
+        int deleteCounter = 0;
+        for (String query : queries) {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement(query);
+            preparedStatement.setLong(1, id);
+            deleteCounter += preparedStatement.executeUpdate();
+        }
+        return deleteCounter >= 0;
     }
 
     private Product getProductFromResultSet(ResultSet resultSet) throws SQLException {

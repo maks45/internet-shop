@@ -115,19 +115,27 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public boolean delete(Long id) {
-        String query = "DELETE FROM users WHERE user_id = ?;";
-        String deleteUserFromUsersRolesQuery = "DELETE FROM users_roles WHERE user_id = ?;";
+        String[] query = new String[]{
+                "DELETE FROM users_roles WHERE user_id = ?;",
+                "DELETE FROM shopping_carts WHERE shopping_cart_user_id = ?;",
+                "DELETE FROM users WHERE user_id = ?;"
+        };
         try (Connection connection = ConnectionUtil.getConnection()) {
-            PreparedStatement deleteUserFromUserRolesStatement =
-                    connection.prepareStatement(deleteUserFromUsersRolesQuery);
-            deleteUserFromUserRolesStatement.setLong(1, id);
-            deleteUserFromUserRolesStatement.executeUpdate();
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setLong(1, id);
-            return preparedStatement.executeUpdate() == 1;
+            return deleteUser(id, query, connection);
         } catch (SQLException e) {
             throw new DataProcessingException("Can't delete user with id: " + id, e);
         }
+    }
+
+    static boolean deleteUser(Long id, String[] queries, Connection connection)
+            throws SQLException {
+        int deleteFieldsCounter = 0;
+        for (String query: queries) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setLong(1, id);
+            deleteFieldsCounter += preparedStatement.executeUpdate();
+        }
+        return deleteFieldsCounter >= 1;
     }
 
     private void setUserRoles(User user, Connection connection)
