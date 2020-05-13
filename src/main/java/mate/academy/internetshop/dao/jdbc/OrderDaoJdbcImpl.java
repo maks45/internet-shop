@@ -18,12 +18,9 @@ import mate.academy.internetshop.model.Product;
 import mate.academy.internetshop.model.Role;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.util.ConnectionUtil;
-import org.apache.log4j.Logger;
 
 @Dao
 public class OrderDaoJdbcImpl implements OrderDao {
-    private static final Logger LOGGER = Logger.getLogger(OrderDaoJdbcImpl.class);
-
     @Override
     public List<Order> getUserOrders(User user) {
         return getUserOrdersByUserId(user.getId());
