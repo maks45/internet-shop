@@ -1,12 +1,5 @@
 package mate.academy.internetshop.dao.jdbc;
 
-import mate.academy.internetshop.dao.UserDao;
-import mate.academy.internetshop.exceptions.DataProcessingException;
-import mate.academy.internetshop.lib.Dao;
-import mate.academy.internetshop.model.Role;
-import mate.academy.internetshop.model.User;
-import mate.academy.internetshop.util.ConnectionUtil;
-import org.apache.log4j.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,18 +10,22 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import mate.academy.internetshop.dao.UserDao;
+import mate.academy.internetshop.exceptions.DataProcessingException;
+import mate.academy.internetshop.lib.Dao;
+import mate.academy.internetshop.model.Role;
+import mate.academy.internetshop.model.User;
+import mate.academy.internetshop.util.ConnectionUtil;
 
 @Dao
 public class UserDaoJdbcImpl implements UserDao {
-    private static final Logger LOGGER = Logger.getLogger(UserDaoJdbcImpl.class);
-
     @Override
     public Optional<User> findByLogin(String login) {
-        String query = "SELECT * FROM users " +
-                "INNER JOIN users_roles " +
-                "ON users.user_id = users_roles.user_id " +
-                "INNER JOIN roles ON users_roles.role_id = roles.role_id " +
-                "WHERE users.login = ?;";
+        String query = "SELECT * FROM users "
+                + "INNER JOIN users_roles "
+                + "ON users.user_id = users_roles.user_id "
+                + "INNER JOIN roles ON users_roles.role_id = roles.role_id "
+                + "WHERE users.login = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query);
@@ -85,10 +82,10 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public Optional<User> get(Long id) {
-        String query = "SELECT * FROM users INNER JOIN users_roles " +
-                "ON users.user_id = users_roles.user_id " +
-                "INNER JOIN roles ON users_roles.role_id = roles.role_id " +
-                "WHERE users.user_id = ?  ORDER BY users.user_id;";
+        String query = "SELECT * FROM users INNER JOIN users_roles "
+                + "ON users.user_id = users_roles.user_id "
+                + "INNER JOIN roles ON users_roles.role_id = roles.role_id "
+                + "WHERE users.user_id = ?  ORDER BY users.user_id;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query);
@@ -102,10 +99,10 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public List<User> getAll() {
-        String query = "SELECT * FROM users INNER JOIN users_roles " +
-                "ON users.user_id = users_roles.user_id " +
-                "INNER JOIN roles ON users_roles.role_id = roles.role_id " +
-                "ORDER BY users.user_id;";
+        String query = "SELECT * FROM users INNER JOIN users_roles "
+                + "ON users.user_id = users_roles.user_id "
+                + "INNER JOIN roles ON users_roles.role_id = roles.role_id "
+                + "ORDER BY users.user_id;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query);

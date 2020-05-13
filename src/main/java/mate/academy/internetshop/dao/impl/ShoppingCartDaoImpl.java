@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 import mate.academy.internetshop.dao.ShoppingCartDao;
 import mate.academy.internetshop.db.Storage;
-import mate.academy.internetshop.lib.Dao;
 import mate.academy.internetshop.model.ShoppingCart;
 
 public class ShoppingCartDaoImpl implements ShoppingCartDao {

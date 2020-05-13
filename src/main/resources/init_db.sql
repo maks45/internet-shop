@@ -112,3 +112,5 @@ CREATE TABLE `internet_shop`.`users_roles`
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
 );
+
+INSERT INTO roles (role_id, role_name) VALUES (1, 'ADMIN'), (2,'USER');

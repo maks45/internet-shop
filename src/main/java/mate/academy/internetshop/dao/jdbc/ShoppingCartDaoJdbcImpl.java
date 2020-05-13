@@ -1,12 +1,5 @@
 package mate.academy.internetshop.dao.jdbc;
 
-import mate.academy.internetshop.dao.ShoppingCartDao;
-import mate.academy.internetshop.exceptions.DataProcessingException;
-import mate.academy.internetshop.lib.Dao;
-import mate.academy.internetshop.model.Product;
-import mate.academy.internetshop.model.ShoppingCart;
-import mate.academy.internetshop.util.ConnectionUtil;
-import org.apache.log4j.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,18 +8,22 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import mate.academy.internetshop.dao.ShoppingCartDao;
+import mate.academy.internetshop.exceptions.DataProcessingException;
+import mate.academy.internetshop.lib.Dao;
+import mate.academy.internetshop.model.Product;
+import mate.academy.internetshop.model.ShoppingCart;
+import mate.academy.internetshop.util.ConnectionUtil;
 
 @Dao
 public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
-    private static final Logger LOGGER = Logger.getLogger(OrderDaoJdbcImpl.class);
-
     @Override
     public Optional<ShoppingCart> getByUserId(Long userId) {
-        String query = "SELECT * FROM shopping_carts " +
-                "LEFT JOIN shopping_cart_products scp " +
-                "ON shopping_carts.shopping_cart_id = scp.shopping_cart_id " +
-                "LEFT JOIN products ON scp.product_id = products.product_id " +
-                "WHERE shopping_carts.shopping_cart_user_id = ?;";
+        String query = "SELECT * FROM shopping_carts "
+                + "LEFT JOIN shopping_cart_products scp "
+                + "ON shopping_carts.shopping_cart_id = scp.shopping_cart_id "
+                + "LEFT JOIN products ON scp.product_id = products.product_id "
+                + "WHERE shopping_carts.shopping_cart_user_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query);
@@ -58,10 +55,10 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
 
     @Override
     public ShoppingCart update(ShoppingCart shoppingCart) {
-        String query = "UPDATE shopping_carts SET shopping_cart_user_id = ? " +
-                "WHERE shopping_cart_id = ?;";
-        String deleteSoppingCartProductsQuery = "DELETE FROM shopping_cart_products " +
-                "WHERE shopping_cart_id = ?;";
+        String query = "UPDATE shopping_carts SET shopping_cart_user_id = ? "
+                + "WHERE shopping_cart_id = ?;";
+        String deleteSoppingCartProductsQuery = "DELETE FROM shopping_cart_products "
+                + "WHERE shopping_cart_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement deleteOrderProductsPrepareStatement =
                     connection.prepareStatement(deleteSoppingCartProductsQuery);
@@ -80,11 +77,11 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
 
     @Override
     public Optional<ShoppingCart> get(Long id) {
-        String query = "SELECT * FROM shopping_carts " +
-                "JOIN shopping_cart_products scp " +
-                "ON shopping_carts.shopping_cart_id = scp.shopping_cart_id " +
-                "JOIN products ON scp.product_id = products.product_id " +
-                "WHERE shopping_carts.shopping_cart_id = ?;";
+        String query = "SELECT * FROM shopping_carts "
+                + "JOIN shopping_cart_products scp "
+                + "ON shopping_carts.shopping_cart_id = scp.shopping_cart_id "
+                + "JOIN products ON scp.product_id = products.product_id "
+                + "WHERE shopping_carts.shopping_cart_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query);
@@ -98,11 +95,11 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
 
     @Override
     public List<ShoppingCart> getAll() {
-        String query = "SELECT * FROM shopping_carts " +
-                "JOIN shopping_cart_products scp " +
-                "ON shopping_carts.shopping_cart_id = scp.shopping_cart_id " +
-                "JOIN products ON scp.product_id = products.product_id " +
-                "ORDER BY shopping_carts.shopping_cart_id;";
+        String query = "SELECT * FROM shopping_carts "
+                + "JOIN shopping_cart_products scp "
+                + "ON shopping_carts.shopping_cart_id = scp.shopping_cart_id "
+                + "JOIN products ON scp.product_id = products.product_id "
+                + "ORDER BY shopping_carts.shopping_cart_id;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query);
@@ -133,9 +130,9 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
     private void setShoppingCartProducts(ShoppingCart shoppingCart, Connection connection)
             throws SQLException {
         String setOrderProductsQuery =
-                "INSERT INTO shopping_cart_products (shopping_cart_products.shopping_cart_id" +
-                        ", shopping_cart_products.product_id) " +
-                        "VALUES (?, ?)";
+                "INSERT INTO shopping_cart_products (shopping_cart_products.shopping_cart_id"
+                        + ", shopping_cart_products.product_id) "
+                        + "VALUES (?, ?)";
         PreparedStatement preparedStatement =
                 connection.prepareStatement(setOrderProductsQuery);
         for (Product product : shoppingCart.getProducts()) {

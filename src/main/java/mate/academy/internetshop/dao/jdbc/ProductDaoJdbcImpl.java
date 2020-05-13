@@ -92,10 +92,10 @@ public class ProductDaoJdbcImpl implements ProductDao {
     @Override
     public boolean delete(Long id) {
         String query = "DELETE FROM products WHERE product_id= ?;";
-        String deleteFromShoppingCartProductsQuery = "DELETE FROM shopping_cart_products " +
-                "WHERE product_id= ?;";
-        String deleteFromOrdersProductsQuery = "DELETE FROM orders_products " +
-                "WHERE product_id= ?;";
+        String deleteFromShoppingCartProductsQuery = "DELETE FROM shopping_cart_products "
+                + "WHERE product_id= ?;";
+        String deleteFromOrdersProductsQuery = "DELETE FROM orders_products "
+                + "WHERE product_id= ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement deleteFromShoppingCartProductsStatement = connection
                     .prepareStatement(deleteFromShoppingCartProductsQuery);
