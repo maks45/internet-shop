@@ -10,7 +10,6 @@ import mate.academy.internetshop.lib.Dao;
 import mate.academy.internetshop.model.Order;
 import mate.academy.internetshop.model.User;
 
-@Dao
 public class OrderDaoImpl implements OrderDao {
 
     @Override

@@ -2,6 +2,7 @@ package mate.academy.internetshop.dao.jdbc;
 
 import mate.academy.internetshop.dao.UserDao;
 import mate.academy.internetshop.exceptions.DataProcessingException;
+import mate.academy.internetshop.lib.Dao;
 import mate.academy.internetshop.model.Role;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.util.ConnectionUtil;
@@ -17,15 +18,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+@Dao
 public class UserDaoJdbcImpl implements UserDao {
     private static final Logger LOGGER = Logger.getLogger(UserDaoJdbcImpl.class);
 
     @Override
     public Optional<User> findByLogin(String login) {
-        String query = "SELECT * FROM users INNER JOIN users_roles " +
+        String query = "SELECT * FROM users " +
+                "INNER JOIN users_roles " +
                 "ON users.user_id = users_roles.user_id " +
                 "INNER JOIN roles ON users_roles.role_id = roles.role_id " +
-                "WHERE users.login = ?  ORDER BY users.user_id;";
+                "WHERE users.login = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query);
@@ -33,7 +36,7 @@ public class UserDaoJdbcImpl implements UserDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             return getUsersFromResultSet(resultSet).stream().findFirst();
         } catch (SQLException e) {
-            throw new DataProcessingException("cant get all orders: ", e);
+            throw new DataProcessingException("can't get all users: ", e);
         }
     }
 
@@ -52,7 +55,7 @@ public class UserDaoJdbcImpl implements UserDao {
             user.setId(resultSet.getLong(1));
             setUserRoles(user, connection);
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't create product ", e);
+            throw new DataProcessingException("Can't create user ", e);
         }
         return user;
     }
@@ -67,7 +70,7 @@ public class UserDaoJdbcImpl implements UserDao {
             deleteRolesPreparedStatement.setLong(1, user.getId());
             deleteRolesPreparedStatement.executeUpdate();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                    .prepareStatement(query);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getLogin());
             preparedStatement.setString(3, user.getPassword());
@@ -75,7 +78,7 @@ public class UserDaoJdbcImpl implements UserDao {
             preparedStatement.executeUpdate();
             setUserRoles(user, connection);
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't create product ", e);
+            throw new DataProcessingException("Can't update user ", e);
         }
         return user;
     }
@@ -93,21 +96,23 @@ public class UserDaoJdbcImpl implements UserDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             return getUsersFromResultSet(resultSet).stream().findFirst();
         } catch (SQLException e) {
-            throw new DataProcessingException("cant get all orders: ", e);
+            throw new DataProcessingException("can't get user with id: " + id, e);
         }
     }
 
     @Override
     public List<User> getAll() {
-        String query = "SELECT * FROM users INNER JOIN users_roles ON users.user_id = users_roles.user_id " +
-                "INNER JOIN roles ON users_roles.role_id = roles.role_id ORDER BY users.user_id;";
+        String query = "SELECT * FROM users INNER JOIN users_roles " +
+                "ON users.user_id = users_roles.user_id " +
+                "INNER JOIN roles ON users_roles.role_id = roles.role_id " +
+                "ORDER BY users.user_id;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
             return getUsersFromResultSet(resultSet);
         } catch (SQLException e) {
-            throw new DataProcessingException("cant get all orders: ", e);
+            throw new DataProcessingException("cant get all users: ", e);
         }
     }
 
@@ -119,7 +124,7 @@ public class UserDaoJdbcImpl implements UserDao {
             preparedStatement.setLong(1, id);
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't delete order with id: " + id, e);
+            throw new DataProcessingException("Can't delete user with id: " + id, e);
         }
     }
 
@@ -134,8 +139,10 @@ public class UserDaoJdbcImpl implements UserDao {
                 .prepareStatement(getRoleIdQuery);
         for (Role role : user.getRoles()) {
             getRoleIdPrepareStatement.setString(1, role.getRoleName().name());
+            ResultSet resultSet = getRoleIdPrepareStatement.executeQuery();
+            resultSet.next();
             insertUserRolesPrepareStatement.setLong(2,
-                    getRoleIdPrepareStatement.executeQuery().getLong("role_id"));
+                    resultSet.getLong("role_id"));
             insertUserRolesPrepareStatement.executeUpdate();
         }
     }
@@ -148,7 +155,7 @@ public class UserDaoJdbcImpl implements UserDao {
                 Set<Role> roles = new HashSet<>();
                 roles.add(Role.of(resultSet.getString("role_name")));
                 User user = new User(
-                        resultSet.getString("username"),
+                        resultSet.getString("usersname"),
                         resultSet.getString("login"),
                         resultSet.getString("password"),
                         roles
