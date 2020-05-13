@@ -107,7 +107,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
             deleteFromOrdersProductsStatement.executeUpdate();
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, id);
-            return preparedStatement.executeUpdate() >= 1;
+            return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
             throw new DataProcessingException("Can't delete product id: " + id, e);
         }
