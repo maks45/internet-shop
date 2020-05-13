@@ -115,7 +115,13 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
     @Override
     public boolean delete(Long id) {
         String query = "DELETE FROM shopping_carts WHERE shopping_cart_id = ?;";
+        String deleteFromShoppingCartProductsQuery =
+                "DELETE FROM shopping_cart_products WHERE shopping_cart_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
+            PreparedStatement deleteFromShoppingCartProductsStatement =
+                    connection.prepareStatement(deleteFromShoppingCartProductsQuery);
+            deleteFromShoppingCartProductsStatement.setLong(1, id);
+            deleteFromShoppingCartProductsStatement.executeUpdate();
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, id);
             return preparedStatement.executeUpdate() == 1;
