@@ -19,12 +19,8 @@ import mate.academy.internetshop.util.ConnectionUtil;
 public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
     @Override
     public Optional<ShoppingCart> getByUserId(Long userId) {
-        String query = "SELECT shopping_carts.shopping_cart_id, shopping_cart_user_id ,"
-                + "products.product_id, product_name, price FROM shopping_carts "
-                + "LEFT JOIN shopping_cart_products scp "
-                + "ON shopping_carts.shopping_cart_id = scp.shopping_cart_id "
-                + "LEFT JOIN products ON scp.product_id = products.product_id "
-                + "WHERE shopping_carts.shopping_cart_user_id = ?;";
+        String query = "SELECT shopping_carts.shopping_cart_id, shopping_cart_user_id "
+                + "FROM shopping_carts WHERE shopping_carts.shopping_cart_user_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query);
@@ -79,12 +75,8 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
 
     @Override
     public Optional<ShoppingCart> get(Long id) {
-        String query = "SELECT shopping_carts.shopping_cart_id, shopping_cart_user_id, "
-                + "products.product_id, product_name, price FROM shopping_carts "
-                + "JOIN shopping_cart_products scp "
-                + "ON shopping_carts.shopping_cart_id = scp.shopping_cart_id "
-                + "JOIN products ON scp.product_id = products.product_id "
-                + "WHERE shopping_carts.shopping_cart_id = ?;";
+        String query = "SELECT shopping_carts.shopping_cart_id, shopping_cart_user_id "
+                + "FROM shopping_carts WHERE shopping_carts.shopping_cart_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query);
@@ -99,13 +91,8 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
 
     @Override
     public List<ShoppingCart> getAll() {
-        String query = "SELECT shopping_cart_id, shopping_cart_user_id, "
-                + "products.product_id, product_name, price "
-                + "FROM shopping_carts "
-                + "JOIN shopping_cart_products scp "
-                + "ON shopping_carts.shopping_cart_id = scp.shopping_cart_id "
-                + "JOIN products ON scp.product_id = products.product_id "
-                + "ORDER BY shopping_carts.shopping_cart_id;";
+        String query = "SELECT shopping_cart_id, shopping_cart_user_id "
+                + "FROM shopping_carts ORDER BY shopping_carts.shopping_cart_id;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query);
@@ -157,28 +144,36 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
             throws SQLException {
         List<Product> products = new ArrayList<>();
         ShoppingCart shoppingCart = new ShoppingCart(
-                products,
+                getShoppingCartProducts(resultSet.getLong("shopping_cart_id")),
                 resultSet.getLong("shopping_cart_user_id")
         );
         shoppingCart.setId(resultSet.getLong("shopping_cart_id"));
-        do {
-            if (!shoppingCart.getId().equals(resultSet.getLong("shopping_cart_id"))) {
-                resultSet.previous();
-                break;
-            }
-            if (resultSet.getString("product_name") != null) {
-                products.add(getProductFromResultSet(resultSet));
-            }
-        } while (resultSet.next());
         return shoppingCart;
     }
 
-    private Product getProductFromResultSet(ResultSet resultSet) throws SQLException {
-        Product product = new Product(
-                resultSet.getString("product_name"),
-                resultSet.getBigDecimal("price")
-        );
-        product.setId(resultSet.getLong("product_id"));
-        return product;
+    private List<Product> getShoppingCartProducts(Long id) {
+        String query = "SELECT products.product_id, product_name, price "
+                + "FROM products "
+                + "JOIN shopping_cart_products scp "
+                + "ON scp.product_id = products.product_id "
+                + "WHERE scp.shopping_cart_id = ?;";
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement(query);
+            preparedStatement.setLong(1, id);
+            List<Product> products = new ArrayList<>();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Product product = new Product(
+                        resultSet.getString("product_name"),
+                        resultSet.getBigDecimal("price")
+                );
+                product.setId(resultSet.getLong("product_id"));
+                products.add(product);
+            }
+            return products;
+        } catch (SQLException e) {
+            throw new DataProcessingException("cant get products for shopping cart id: " + id, e);
+        }
     }
 }

@@ -21,12 +21,8 @@ import mate.academy.internetshop.util.ConnectionUtil;
 public class UserDaoJdbcImpl implements UserDao {
     @Override
     public Optional<User> findByLogin(String login) {
-        String query = "SELECT users.user_id, usersname, login, password, "
-                + "role_name, roles.role_id FROM users "
-                + "INNER JOIN users_roles "
-                + "ON users.user_id = users_roles.user_id "
-                + "INNER JOIN roles ON users_roles.role_id = roles.role_id "
-                + "WHERE users.login = ?;";
+        String query = "SELECT users.user_id, usersname, login, password "
+                + "FROM users WHERE users.login = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
@@ -85,15 +81,11 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public Optional<User> get(Long id) {
-        String query = "SELECT users.user_id, usersname, login, password, "
-                + "role_name, roles.role_id FROM users "
-                + "INNER JOIN users_roles ON users.user_id = users_roles.user_id "
-                + "INNER JOIN roles ON users_roles.role_id = roles.role_id  "
-                + " WHERE users.user_id = ?";
+        String query = "SELECT users.user_id, usersname, login, password"
+                + " FROM users WHERE users.user_id = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
-                            ResultSet.CONCUR_UPDATABLE);
+                    .prepareStatement(query);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
@@ -105,15 +97,11 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public List<User> getAll() {
-        String query = "SELECT users.user_id, usersname, login, password, "
-                + "role_name, roles.role_id FROM users "
-                + "INNER JOIN users_roles ON users.user_id = users_roles.user_id "
-                + "INNER JOIN roles ON users_roles.role_id = roles.role_id "
-                + "ORDER BY users.user_id;";
+        String query = "SELECT users.user_id, usersname, login, password "
+                + "FROM users ORDER BY users.user_id;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
-                            ResultSet.CONCUR_UPDATABLE);
+                    .prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
             List<User> users = new ArrayList<>();
             while (resultSet.next()) {
@@ -130,6 +118,7 @@ public class UserDaoJdbcImpl implements UserDao {
         String[] query = new String[]{
                 "DELETE FROM users_roles WHERE user_id = ?;",
                 "DELETE FROM shopping_carts WHERE shopping_cart_user_id = ?;",
+                "DELETE FROM orders WHERE order_user_id = ?;",
                 "DELETE FROM users WHERE user_id = ?;"
         };
         try (Connection connection = ConnectionUtil.getConnection()) {
@@ -170,26 +159,32 @@ public class UserDaoJdbcImpl implements UserDao {
     }
 
     private User getUserFromResultSet(ResultSet resultSet) throws SQLException {
-        Set<Role> roles = new HashSet<>();
         User user = new User(
                 resultSet.getString("usersname"),
                 resultSet.getString("login"),
                 resultSet.getString("password"),
-                roles);
+                getUserRoles(resultSet.getLong("user_id")));
         user.setId(resultSet.getLong("user_id"));
-        do {
-            if (!user.getId().equals(resultSet.getLong("user_id"))) {
-                resultSet.previous();
-                break;
-            }
-            user.getRoles().add(getRoleFromResultSet(resultSet));
-        } while (resultSet.next());
         return user;
     }
 
-    private Role getRoleFromResultSet(ResultSet resultSet) throws SQLException {
-        Role role = Role.of(resultSet.getString("role_name"));
-        role.setId(resultSet.getLong("role_id"));
-        return role;
+    private Set<Role> getUserRoles(Long userId) {
+        String query = "SELECT roles.role_id, roles.role_name FROM roles "
+                + "INNER JOIN users_roles ON roles.role_id = users_roles.role_id "
+                + "WHERE users_roles.user_id = ?";
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            Set<Role> roles = new HashSet<>();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setLong(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Role role = Role.of(resultSet.getString("role_name"));
+                role.setId(resultSet.getLong("role_id"));
+                roles.add(role);
+            }
+            return roles;
+        } catch (SQLException e) {
+            throw new DataProcessingException("Can't get roles for user with id: " + userId, e);
+        }
     }
 }
