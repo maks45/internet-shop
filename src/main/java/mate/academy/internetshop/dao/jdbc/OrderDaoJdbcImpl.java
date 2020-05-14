@@ -187,8 +187,6 @@ public class OrderDaoJdbcImpl implements OrderDao {
                 }
             }
         }
-
         return orders;
     }
-
 }

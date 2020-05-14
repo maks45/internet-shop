@@ -169,5 +169,4 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
         }
         return shoppingCarts;
     }
-
 }
