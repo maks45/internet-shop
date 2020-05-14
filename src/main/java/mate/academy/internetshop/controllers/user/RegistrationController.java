@@ -33,8 +33,7 @@ public class RegistrationController extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("pwd");
         String confirmPassword = req.getParameter("pwd-confirm");
-        if (password.equals(confirmPassword)
-                && userService.findByLogin(login).isEmpty()) {
+        if (password.equals(confirmPassword)) {
             User user = userService.create(new User(name, login, password,
                     Set.of(Role.of("USER"))));
             shoppingCartService.create(new ShoppingCart(new ArrayList<>(), user.getId()));

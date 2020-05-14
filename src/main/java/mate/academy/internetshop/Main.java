@@ -36,7 +36,7 @@ public class Main {
         Product product3 = productService.create(new Product("item_3", new BigDecimal("46.0")));
         shoppingCartService.addProduct(shoppingCart, product3);
         System.out.println(shoppingCart);
-        Order order = orderService.completeOrder(shoppingCart.getProducts(), user);
+        Order order = orderService.completeOrder(shoppingCart.getProducts(), user.getId());
         System.out.println(order);
         System.out.println(shoppingCartService.get(user.getId()));
         userService.delete(user.getId());
