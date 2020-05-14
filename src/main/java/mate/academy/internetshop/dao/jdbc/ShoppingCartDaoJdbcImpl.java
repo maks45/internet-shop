@@ -19,7 +19,8 @@ import mate.academy.internetshop.util.ConnectionUtil;
 public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
     @Override
     public Optional<ShoppingCart> getByUserId(Long userId) {
-        String query = "SELECT * FROM shopping_carts "
+        String query = "SELECT shopping_carts.shopping_cart_id, shopping_cart_user_id ,"
+                + "products.product_id, product_name, price FROM shopping_carts "
                 + "LEFT JOIN shopping_cart_products scp "
                 + "ON shopping_carts.shopping_cart_id = scp.shopping_cart_id "
                 + "LEFT JOIN products ON scp.product_id = products.product_id "
@@ -28,8 +29,9 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query);
             preparedStatement.setLong(1, userId);
-            return getShoppingCartsFromResultSet(preparedStatement.executeQuery())
-                    .stream().findFirst();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            return Optional.of(getShoppingCartFromResultSet(resultSet));
         } catch (SQLException e) {
             throw new DataProcessingException("cant get shopping cart by user id: " + userId, e);
         }
@@ -77,7 +79,8 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
 
     @Override
     public Optional<ShoppingCart> get(Long id) {
-        String query = "SELECT * FROM shopping_carts "
+        String query = "SELECT shopping_carts.shopping_cart_id, shopping_cart_user_id, "
+                + "products.product_id, product_name, price FROM shopping_carts "
                 + "JOIN shopping_cart_products scp "
                 + "ON shopping_carts.shopping_cart_id = scp.shopping_cart_id "
                 + "JOIN products ON scp.product_id = products.product_id "
@@ -86,8 +89,9 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query);
             preparedStatement.setLong(1, id);
-            return getShoppingCartsFromResultSet(preparedStatement.executeQuery())
-                    .stream().findFirst();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            return Optional.of(getShoppingCartFromResultSet(resultSet));
         } catch (SQLException e) {
             throw new DataProcessingException("cant get shopping cart with id: " + id, e);
         }
@@ -95,7 +99,9 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
 
     @Override
     public List<ShoppingCart> getAll() {
-        String query = "SELECT * FROM shopping_carts "
+        String query = "SELECT shopping_cart_id, shopping_cart_user_id, "
+                + "products.product_id, product_name, price "
+                + "FROM shopping_carts "
                 + "JOIN shopping_cart_products scp "
                 + "ON shopping_carts.shopping_cart_id = scp.shopping_cart_id "
                 + "JOIN products ON scp.product_id = products.product_id "
@@ -103,7 +109,12 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query);
-            return getShoppingCartsFromResultSet(preparedStatement.executeQuery());
+            List<ShoppingCart> shoppingCarts = new ArrayList<>();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                shoppingCarts.add(getShoppingCartFromResultSet(resultSet));
+            }
+            return shoppingCarts;
         } catch (SQLException e) {
             throw new DataProcessingException("cant get all shopping carts: ", e);
         }
@@ -142,31 +153,28 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
         }
     }
 
-    private List<ShoppingCart> getShoppingCartsFromResultSet(ResultSet resultSet)
+    private ShoppingCart getShoppingCartFromResultSet(ResultSet resultSet)
             throws SQLException {
-        List<ShoppingCart> shoppingCarts = new ArrayList<>();
         List<Product> products = new ArrayList<>();
-        while (resultSet.next()) {
-            if (shoppingCarts.isEmpty()
-                    || !shoppingCarts.get(shoppingCarts.size() - 1).getId()
-                    .equals(resultSet.getLong("shopping_cart_id"))) {
-                products = new ArrayList<>();
-                ShoppingCart shoppingCart = new ShoppingCart(
-                        products,
-                        resultSet.getLong("shopping_cart_user_id")
-                );
-                shoppingCart.setId(resultSet.getLong("shopping_cart_id"));
-                shoppingCarts.add(shoppingCart);
-            }
+        ShoppingCart shoppingCart = new ShoppingCart(
+                products,
+                resultSet.getLong("shopping_cart_user_id")
+        );
+        shoppingCart.setId(resultSet.getLong("shopping_cart_id"));
+        do {
             if (resultSet.getString("product_name") != null) {
-                Product product = new Product(
-                        resultSet.getString("product_name"),
-                        resultSet.getBigDecimal("price")
-                );
-                product.setId(resultSet.getLong("product_id"));
-                products.add(product);
+                products.add(getProductFromResultSet(resultSet));
             }
-        }
-        return shoppingCarts;
+        } while (resultSet.next());
+        return shoppingCart;
+    }
+
+    private Product getProductFromResultSet(ResultSet resultSet) throws SQLException {
+        Product product = new Product(
+                resultSet.getString("product_name"),
+                resultSet.getBigDecimal("price")
+        );
+        product.setId(resultSet.getLong("product_id"));
+        return product;
     }
 }
