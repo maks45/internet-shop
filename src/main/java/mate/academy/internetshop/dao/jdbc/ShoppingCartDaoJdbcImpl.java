@@ -162,6 +162,10 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
         );
         shoppingCart.setId(resultSet.getLong("shopping_cart_id"));
         do {
+            if (!shoppingCart.getId().equals(resultSet.getLong("shopping_cart_id"))) {
+                resultSet.previous();
+                break;
+            }
             if (resultSet.getString("product_name") != null) {
                 products.add(getProductFromResultSet(resultSet));
             }

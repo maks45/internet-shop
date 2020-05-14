@@ -32,7 +32,8 @@ public class OrderDaoJdbcImpl implements OrderDao {
                 + "WHERE orders.order_user_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement(query);
+                    .prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
+                            ResultSet.CONCUR_UPDATABLE);
             preparedStatement.setLong(1, userId);
             List<Order> orders = new ArrayList<>();
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -92,7 +93,8 @@ public class OrderDaoJdbcImpl implements OrderDao {
                 + "WHERE orders.order_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement(query);
+                    .prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
+                            ResultSet.CONCUR_UPDATABLE);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
@@ -111,7 +113,8 @@ public class OrderDaoJdbcImpl implements OrderDao {
                 + "ORDER BY orders.order_id;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement(query);
+                    .prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
+                            ResultSet.CONCUR_UPDATABLE);
             List<Order> orders = new ArrayList<>();
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -161,9 +164,11 @@ public class OrderDaoJdbcImpl implements OrderDao {
                 resultSet.getLong("order_user_id"));
         order.setOrderId(resultSet.getLong("order_id"));
         do {
-            if (resultSet.getString("product_name") != null) {
-                products.add(getProductFromResultSet(resultSet));
+            if (!order.getOrderId().equals(resultSet.getLong("order_id"))) {
+                resultSet.previous();
+                break;
             }
+            products.add(getProductFromResultSet(resultSet));
         } while (resultSet.next());
         return order;
     }

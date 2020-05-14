@@ -29,7 +29,8 @@ public class UserDaoJdbcImpl implements UserDao {
                 + "WHERE users.login = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement(query);
+                    .prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
+                            ResultSet.CONCUR_UPDATABLE);
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
@@ -52,7 +53,6 @@ public class UserDaoJdbcImpl implements UserDao {
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             resultSet.next();
             user.setId(resultSet.getLong(1));
-            System.out.println("user _id" + user.getId());
             setUserRoles(user, connection);
         } catch (SQLException e) {
             throw new DataProcessingException("Can't create user ", e);
@@ -92,7 +92,8 @@ public class UserDaoJdbcImpl implements UserDao {
                 + " WHERE users.user_id = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement(query);
+                    .prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
+                            ResultSet.CONCUR_UPDATABLE);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
@@ -111,16 +112,12 @@ public class UserDaoJdbcImpl implements UserDao {
                 + "ORDER BY users.user_id;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement(query);
+                    .prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
+                            ResultSet.CONCUR_UPDATABLE);
             ResultSet resultSet = preparedStatement.executeQuery();
             List<User> users = new ArrayList<>();
             while (resultSet.next()) {
-                if (users.isEmpty() || !users.get(users.size() - 1).getId()
-                        .equals(resultSet.getLong("user_id"))) {
-                    users.add(getUserFromResultSet(resultSet));
-                } else {
-                    users.get(users.size() - 1).getRoles().add(getRoleFromResultSet(resultSet));
-                }
+                users.add(getUserFromResultSet(resultSet));
             }
             return users;
         } catch (SQLException e) {
@@ -178,10 +175,15 @@ public class UserDaoJdbcImpl implements UserDao {
                 resultSet.getString("usersname"),
                 resultSet.getString("login"),
                 resultSet.getString("password"),
-                roles
-        );
+                roles);
         user.setId(resultSet.getLong("user_id"));
-        roles.add(getRoleFromResultSet(resultSet));
+        do {
+            if (!user.getId().equals(resultSet.getLong("user_id"))) {
+                resultSet.previous();
+                break;
+            }
+            user.getRoles().add(getRoleFromResultSet(resultSet));
+        } while (resultSet.next());
         return user;
     }
 
