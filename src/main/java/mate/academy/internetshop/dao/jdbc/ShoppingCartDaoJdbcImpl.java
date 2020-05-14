@@ -143,11 +143,12 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
     private ShoppingCart getShoppingCartFromResultSet(ResultSet resultSet)
             throws SQLException {
         List<Product> products = new ArrayList<>();
+        Long shoppingCartId = resultSet.getLong("shopping_cart_user_id");
         ShoppingCart shoppingCart = new ShoppingCart(
                 getShoppingCartProducts(resultSet.getLong("shopping_cart_id")),
-                resultSet.getLong("shopping_cart_user_id")
+                shoppingCartId
         );
-        shoppingCart.setId(resultSet.getLong("shopping_cart_id"));
+        shoppingCart.setId(shoppingCartId);
         return shoppingCart;
     }
 
