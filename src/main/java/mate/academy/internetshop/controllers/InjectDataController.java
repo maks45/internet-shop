@@ -16,6 +16,7 @@ import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.ProductService;
 import mate.academy.internetshop.service.ShoppingCartService;
 import mate.academy.internetshop.service.UserService;
+import mate.academy.internetshop.util.HashUtil;
 
 public class InjectDataController extends HttpServlet {
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internetshop");
@@ -28,12 +29,10 @@ public class InjectDataController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        User admin = userService.create(new User("admin", "admin", "1111",
+        byte[] salt = HashUtil.getSalt();
+        User admin = userService.create(new User("admin", "admin","1111",
                 Set.of(Role.of("ADMIN"))));
         shoppingCartService.create(new ShoppingCart(new ArrayList<>(), admin.getId()));
-        User user = userService.create(new User("user", "user", "1111",
-                Set.of(Role.of("USER"))));
-        shoppingCartService.create(new ShoppingCart(new ArrayList<>(), user.getId()));
         productService.create(new Product("product-1", new BigDecimal("10.0")));
         resp.sendRedirect(req.getContextPath() + "/");
     }

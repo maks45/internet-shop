@@ -21,7 +21,7 @@ import mate.academy.internetshop.util.ConnectionUtil;
 public class UserDaoJdbcImpl implements UserDao {
     @Override
     public Optional<User> findByLogin(String login) {
-        String query = "SELECT users.user_id, usersname, login, password "
+        String query = "SELECT users.user_id, usersname, login, password, salt "
                 + "FROM users WHERE users.login = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
@@ -38,13 +38,14 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public User create(User user) {
-        String query = "INSERT INTO users (usersname, login, password) VALUES (?, ?, ?);";
+        String query = "INSERT INTO users (usersname, login, password, salt) VALUES (?, ?, ?, ?);";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getLogin());
             preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setBytes(4, user.getSalt());
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             resultSet.next();
@@ -58,7 +59,8 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public User update(User user) {
-        String query = "UPDATE users SET usersname = ?, login = ?, password= ? WHERE user_id = ? ;";
+        String query = "UPDATE users SET usersname = ?, login = ?, password = ?"
+                + ", salt = ? WHERE user_id = ? ;";
         String deleteUserRolesQuery = "DELETE FROM users_roles WHERE user_id = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement deleteRolesPreparedStatement = connection
@@ -70,7 +72,8 @@ public class UserDaoJdbcImpl implements UserDao {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getLogin());
             preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setLong(4, user.getId());
+            preparedStatement.setBytes(4, user.getSalt());
+            preparedStatement.setLong(5, user.getId());
             preparedStatement.executeUpdate();
             setUserRoles(user, connection);
         } catch (SQLException e) {
@@ -81,7 +84,7 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public Optional<User> get(Long id) {
-        String query = "SELECT users.user_id, usersname, login, password"
+        String query = "SELECT users.user_id, usersname, login, password, salt"
                 + " FROM users WHERE users.user_id = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
@@ -97,7 +100,7 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public List<User> getAll() {
-        String query = "SELECT users.user_id, usersname, login, password "
+        String query = "SELECT users.user_id, usersname, login, password, salt "
                 + "FROM users ORDER BY users.user_id;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
@@ -165,6 +168,7 @@ public class UserDaoJdbcImpl implements UserDao {
                 resultSet.getString("login"),
                 resultSet.getString("password"),
                 getUserRoles(userId));
+        user.setSalt(resultSet.getBytes("salt"));
         user.setId(userId);
         return user;
     }
