@@ -8,6 +8,7 @@ public class User {
     private String name;
     private String login;
     private String password;
+    private byte[] salt;
     private Set<Role> roles;
 
     public User(String name, String login, String password, Set<Role> roles) {
@@ -57,6 +58,14 @@ public class User {
         this.password = password;
     }
 
+    public byte[] getSalt() {
+        return salt;
+    }
+
+    public void setSalt(byte[] salt) {
+        this.salt = salt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -67,8 +76,8 @@ public class User {
         }
         User user = (User) o;
         return name.equals(user.name)
-               && login.equals(user.login)
-               && password.equals(user.password);
+                && login.equals(user.login)
+                && password.equals(user.password);
     }
 
     @Override
