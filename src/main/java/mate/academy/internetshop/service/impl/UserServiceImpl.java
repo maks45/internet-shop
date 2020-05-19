@@ -33,8 +33,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User user) {
-        user.setSalt(HashUtil.getSalt());
-        user.setPassword(HashUtil.hashPassword(user.getPassword(), user.getSalt()));
         return userDao.update(user);
     }
 
