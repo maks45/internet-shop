@@ -49,12 +49,16 @@ Change a path in /mate/academy/internetshop/src/main/resources/log4j.properties.
 Run the project.
 If you first time launch this project: 
  * Run InjectDataController by URL = .../inject-data to create default users and products.
-By default there are:
+
+By default there are: 
  * one user with an USER role (login = "user", password = "1111") 
  * one user with an ADMIN role (login = "admin", password = "1111")
  * one product with (name = "product-1", price = 10.0) 
  * one product with (name = "product-2", price = 11.0) 
-<hr>
+ 
+ To test an application without creating a database, you must change all Dao implementations from dao.jdbc package to 
+ all implementation from dao.impl package.
+ <hr>
 
 # <a name="authors">Authors</a>
 * [Maksym Durov](https://github.com/maks45)
