@@ -31,7 +31,11 @@ public class InjectDataController extends HttpServlet {
         User admin = userService.create(new User("admin", "admin","1111",
                 Set.of(Role.of("ADMIN"))));
         shoppingCartService.create(new ShoppingCart(new ArrayList<>(), admin.getId()));
+        User user = userService.create(new User("user", "user","1111",
+                Set.of(Role.of("USER"))));
+        shoppingCartService.create(new ShoppingCart(new ArrayList<>(), admin.getId()));
         productService.create(new Product("product-1", new BigDecimal("10.0")));
+        productService.create(new Product("product-2", new BigDecimal("11.0")));
         resp.sendRedirect(req.getContextPath() + "/");
     }
 }
