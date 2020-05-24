@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 import mate.academy.internetshop.exceptions.DataProcessingException;
-import org.apache.log4j.Logger;
 
 public class ConnectionUtil {
 

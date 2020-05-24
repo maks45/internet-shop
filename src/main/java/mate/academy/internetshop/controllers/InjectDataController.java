@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Set;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,13 +25,13 @@ public class InjectDataController extends HttpServlet {
             (ShoppingCartService) INJECTOR.getInstance(ShoppingCartService.class);
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         User admin = userService.create(new User("admin", "admin","1111",
                 Set.of(Role.of("ADMIN"))));
         shoppingCartService.create(new ShoppingCart(new ArrayList<>(), admin.getId()));
         User user = userService.create(new User("user", "user","1111",
                 Set.of(Role.of("USER"))));
+        shoppingCartService.create(new ShoppingCart(new ArrayList<>(), user.getId()));
         shoppingCartService.create(new ShoppingCart(new ArrayList<>(), admin.getId()));
         productService.create(new Product("product-1", new BigDecimal("10.0")));
         productService.create(new Product("product-2", new BigDecimal("11.0")));
