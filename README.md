@@ -47,6 +47,7 @@ Use file /mate/academy/internetshop/src/main/resources/init_db.sql to create sch
 At /mate/academy/internetshop/src/main/java/mate/academy/internetshop/util/ConnectionUtil.class set username and password for your DB to create a Connection.
 Change a path in /mate/academy/internetshop/src/main/resources/log4j.properties. It has to reach your logFile.
 Run the project.
+
 If you first time launch this project: 
  * Run InjectDataController by URL = .../inject-data to create default users and products.
 
