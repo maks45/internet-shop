@@ -56,7 +56,7 @@ By default there are:
  * one product with (name = "product-1", price = 10.0) 
  * one product with (name = "product-2", price = 11.0) 
  
- To test an application without creating a database, you must change all Dao implementations from dao.jdbc package to 
+ To test the application without creating a database, you must change all Dao implementations from dao.jdbc package to 
  all implementation from dao.impl package.
  <hr>
 
