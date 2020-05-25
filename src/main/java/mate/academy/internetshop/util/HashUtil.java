@@ -6,7 +6,7 @@ import java.security.SecureRandom;
 import org.apache.log4j.Logger;
 
 public class HashUtil {
-    private static final Logger LOGGER = Logger.getLogger(HashUtil.class);
+    private static final Logger logger = Logger.getLogger(HashUtil.class);
 
     public static byte[] getSalt() {
         SecureRandom random = new SecureRandom();
@@ -25,7 +25,7 @@ public class HashUtil {
                 hashedPassword.append(String.format("%02x",b));
             }
         } catch (NoSuchAlgorithmException e) {
-            LOGGER.error(e);
+            logger.error(e);
         }
         return hashedPassword.toString();
     }
