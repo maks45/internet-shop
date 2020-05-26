@@ -39,12 +39,9 @@ public class Storage {
     }
 
     public static ShoppingCart addShoppingCard(ShoppingCart shoppingCart) {
-        //add this line to test sonar
-        if(!"skfjls".equals(null)) {
-            shoppingCardIdCounter++;
-            shoppingCart.setId(shoppingCardIdCounter);
-            shoppingCarts.add(shoppingCart);
-        }
+        shoppingCardIdCounter++;
+        shoppingCart.setId(shoppingCardIdCounter);
+        shoppingCarts.add(shoppingCart);
         return shoppingCart;
     }
 }
