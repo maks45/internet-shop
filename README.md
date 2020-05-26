@@ -1,2 +1,1 @@
 # internet-shop
-sonar changes

@@ -1,14 +1,18 @@
 language: java
 jdk:
   - openjdk11
+#script:
+ # - mvn clean install
 cache:
   directories:
     - $HOME/.m2
+secure: "n2q5EYYgsjW+cLv8khwzQtdCjWUtWEEaV0eRN1GCbQb2E9XGTYPk6B3V8dRUltDPaKgTU30EFKZ+4QTd1vhMKiqfW1kIOYBBvqiu/897UmewKiLpoueEWqSuMw/EGYJ7eEoywNFdLYtP/FiZF1kR6Vv3DknMc01BUCMkse5tw9jfQlnS4E9W4zar3bmqSm3Va0GfZjGyxG0///pOCHx9nuTbuCPnlt+d27vt5G1kPceeaVxwTMtXkmBfrzY/0xCrjlBFZsuJoKCar4Ca6YGJ7GSEj3I+S7jAHvXb0er8l5yC8F/g8h6y6rnuKH3jGFB4nQm7s8luz5K924O/VeDvOF9D4QGxlvY9m4NZeEyS7LVlvFzVNzHVRfEyAbSGuYRouPnXNsHehiq0UIBi/ftpAPpvARt+YM4VaEe8mRuoc3e3DkEPiY7P/aXMt0v+PgJWj59O/4DCMj6Yn+1TGw9f1PxyBFVBIXecTL2v0AAV1a3sW1ELOco+/UNtVeNvPvnntbRGqkpqdAFrUZpxutBGNsUXmSeDhOF9bi7CnEAsm8UfJA0RLIaDC8kOP5sLsdwaPtMryAwiw5pEEPWQ8WKVxkZquFqCyhUtKXvJt527Qx1VuXjuRpIHqw5q2pX0dVwT4Bwob2NfYiUVswogG4PgeGTWPbehVkC7fdTwuTT7foI="
 addons:
   sonarcloud:
-    organization: "maks45" # the key of the org you chose at step #3
+    organization: "maks45"
     token:
-      secure: "25233de49a6ff5e026b7c431521c9b2e89202cb9" # encrypted value of your token
+      secure: "**************************" # encrypted value of your token
+
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
-  - mvn clean verify sonar:sonar -Pcoverage -Dsonar.projectKey=myorg_myrepo
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
