@@ -8,9 +8,9 @@ cache:
     - $HOME/.m2
 addons:
   sonarcloud:
-    organization: "sonarcloud_organization_key" # the key of the org you chose at step #3
+    organization: "maks45" # the key of the org you chose at step #3
     token:
-      secure: "*********" # encrypted value of your token
+      secure: "maks45" # encrypted value of your token
 script:
   # other script steps might be done before running the actual analysis
   - sonar-scanner
