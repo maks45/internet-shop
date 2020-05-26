@@ -1,8 +1,6 @@
 language: java
 jdk:
   - openjdk11
-#script:
-#  - mvn clean install
 cache:
   directories:
     - $HOME/.m2
@@ -10,7 +8,7 @@ addons:
   sonarcloud:
     organization: "maks45" # the key of the org you chose at step #3
     token:
-      secure: "maks45" # encrypted value of your token
+      secure: "25233de49a6ff5e026b7c431521c9b2e89202cb9" # encrypted value of your token
 script:
-  # other script steps might be done before running the actual analysis
-  - sonar-scanner
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean verify sonar:sonar -Pcoverage -Dsonar.projectKey=myorg_myrepo
