@@ -11,5 +11,5 @@ addons:
       secure: "LfSvQnL+SFsxDYZL5VWI8NcVJiENSstucgHk8ECBdtc1WA/j12WCA0nAyHGaTNT+maTQeJyQI8zVXdXYh3yhgxwyLP4pXJ7xQF7aAP68QTCIN/YtkF1hPh/FKDn5elG0Ad2+zChNFvPVZJE8g2UxrUXU9HFWt3nwXRemf1kk2+opXPT+ejim0LRsw2ia23aguu8uB8hEqlU4iiakHCNVowQtFzP5zymEHfaTe/lbQWr+7LOIvFYwlRhyu+Ufrq4giAjz5Gb3phwabXaaprAIAwVkJf0gEXl0A4NZdqgXLCXrgMhuWnjV0o/O2mR7/44JF0yZQ1oDDX8x7T/VkGXn0A3FtNHl7vFUC4jSaMxccZLz1l84bIorKWlIpWZXxir1Ut02uATjGU6eqp5b0biPOnfcBZ99GGjrB/0QxyzfudVHIQkodiFGlPfWz9RxCrg5HRdlcxPfw3dDMspHaae8rHD/kj/+OrY5JlA5244fF8otDo+EkrhPawAdhMDbVFyTyzHdBktAiOavJBv9JDA4ioYIJLNQoDxy9SEX1KHZOmrAmy/pg7vGULVeQEnW7ivF1vKcP1f4iL587D4CxC1dU1Qmznf2PtHks7WNfvcMqdq52yk0GpUQ/vcAstAXk6Q5w83IwK6vin/C6QxTMjw3a9WDYR6b6l50/AISLW3LiL4="
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
-  #- mvn clean install
+  - mvn clean install
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=maks45_internet-shop
