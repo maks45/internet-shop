@@ -39,8 +39,6 @@ public class Storage {
     }
 
     public static ShoppingCart addShoppingCard(ShoppingCart shoppingCart) {
-        ///added to check how sonar works
-        shoppingCart = null;
         shoppingCardIdCounter++;
         shoppingCart.setId(shoppingCardIdCounter);
         shoppingCarts.add(shoppingCart);
