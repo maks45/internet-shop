@@ -1,8 +1,16 @@
 language: java
 jdk:
   - openjdk11
+
 script:
-  - mvn clean install
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=maks45_internet-shop
 cache:
   directories:
     - $HOME/.m2
+addons:
+  sonarcloud:
+    organization: "maks45"
+    token:
+      secure: "geaLex/VpeFND65QI2UVDmh66p9uP/SQFEm3skVZuOM6IOui+SGAFUnlIGq7AXYWnt3cIVCV3QKKDnJcVCbyViIiP1T/Brtx8VZ+lzoVQNbQ1JUk5w4mJ3Ada3VWqN6eJHMv3zfEy/sUJCFzYmsflwYaX61uMoN53bUXRbtkmtRxz5yEcB1uzNhwpjlbW5oSEcySXiuF7AdRXNRFfiBr9gBctt06bIA4d26fEUABw3mRq1vG7Mv3B1PzE5bx20k4Q+oJQonU0gnjpt4t7BOv8doHEic4x48Mz6N/yFg1EQ4ZMkdXVje+4ns4KrR1sJS9mJ1rv9x761KeTtEqK15se/kwfP+UFGstkjWURh38Vxe9ghws/aRrjuHRbpOKqRK1FOrlmQ7OyVDykFmWwqRsLHpJnw0Hnngxiv12zUA0J6JtRKOMY/v9ftUwe3jPQEklk2n3nWnb+ZVVZy+2HjQ6CG7gGsUFc/tqYUbl0Evc8655/+JCEPc4mLdZnpDYmxZGIW0yHCsjpezAiDk8/vKo8SiTj8xNdso+R9zRJYQft4dMBzCkRjzO/TkzmrU1j/eZHXBir/aDGoisKJi1XIoEwlo4XStOz1/oArocv1cjsnQ6h4SZEh1lR439MTdEQCcHl71kdW1bOxnef3517ygLkVUPvnAcbyGLCen5XZO2UQA="
+
