@@ -28,7 +28,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
         String query = "SELECT orders.order_id, order_user_id "
                 + "FROM orders WHERE orders.order_user_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             List<Order> orders = new ArrayList<>();
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
@@ -44,15 +44,16 @@ public class OrderDaoJdbcImpl implements OrderDao {
     @Override
     public Order create(Order order) {
         String query = "INSERT INTO orders (order_user_id) VALUES (?);";
-        try (Connection connection = ConnectionUtil.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(query,
-                    Statement.RETURN_GENERATED_KEYS);
+        try (Connection connection = ConnectionUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query,
+                     Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setLong(1, order.getUserId());
             preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            resultSet.next();
-            order.setOrderId(resultSet.getLong(1));
-            setOrderProducts(order, connection);
+            try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+                resultSet.next();
+                order.setOrderId(resultSet.getLong(1));
+                setOrderProducts(order, connection);
+            }
         } catch (SQLException e) {
             throw new DataProcessingException("Can't create order ", e);
         }
@@ -63,12 +64,12 @@ public class OrderDaoJdbcImpl implements OrderDao {
     public Order update(Order order) {
         String query = "UPDATE orders SET order_user_id = ? WHERE order_id = ?;";
         String deleteOrderProductsQuery = "DELETE FROM orders_products WHERE order_id = ?";
-        try (Connection connection = ConnectionUtil.getConnection()) {
-            PreparedStatement deleteOrderProductsPrepareStatement =
-                    connection.prepareStatement(deleteOrderProductsQuery);
+        try (Connection connection = ConnectionUtil.getConnection();
+             PreparedStatement deleteOrderProductsPrepareStatement =
+                     connection.prepareStatement(deleteOrderProductsQuery);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             deleteOrderProductsPrepareStatement.setLong(1, order.getOrderId());
             deleteOrderProductsPrepareStatement.executeUpdate();
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, order.getUserId());
             preparedStatement.setLong(2, order.getOrderId());
             preparedStatement.executeUpdate();
@@ -83,14 +84,16 @@ public class OrderDaoJdbcImpl implements OrderDao {
     public Optional<Order> get(Long id) {
         String query = "SELECT orders.order_id, order_user_id "
                 + "FROM orders WHERE orders.order_id = ?;";
-        try (Connection connection = ConnectionUtil.getConnection()) {
-            PreparedStatement preparedStatement = connection
-                    .prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
-                            ResultSet.CONCUR_UPDATABLE);
+        try (Connection connection = ConnectionUtil.getConnection();
+             PreparedStatement preparedStatement = connection
+                     .prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
+                             ResultSet.CONCUR_UPDATABLE)) {
             preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            return Optional.of(getOrderFromResultSet(resultSet));
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+
+                resultSet.next();
+                return Optional.of(getOrderFromResultSet(resultSet));
+            }
         } catch (SQLException e) {
             throw new DataProcessingException("Can't get orders with id: " + id, e);
         }
