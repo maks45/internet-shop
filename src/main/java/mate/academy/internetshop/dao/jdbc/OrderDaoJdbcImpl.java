@@ -27,7 +27,8 @@ public class OrderDaoJdbcImpl implements OrderDao {
     public List<Order> getUserOrdersByUserId(Long userId) {
         String query = "SELECT orders.order_id, order_user_id "
                 + "FROM orders WHERE orders.order_user_id = ?;";
-        try (Connection connection = ConnectionUtil.getConnection()) {
+        try {
+            Connection connection = ConnectionUtil.getConnection();
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query);
             preparedStatement.setLong(1, userId);
