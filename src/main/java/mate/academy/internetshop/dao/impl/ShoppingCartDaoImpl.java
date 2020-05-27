@@ -18,7 +18,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
         return Storage.shoppingCarts.set(
                 IntStream.range(0, Storage.shoppingCarts.size())
                 .filter(i -> Storage.shoppingCarts.get(i).getId().equals(shoppingCart.getId()))
-                .findFirst().getAsInt(),
+                .findFirst().orElse(-1),
                 shoppingCart);
     }
 

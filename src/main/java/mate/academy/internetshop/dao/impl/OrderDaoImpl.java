@@ -21,7 +21,7 @@ public class OrderDaoImpl implements OrderDao {
         return Storage.orders.set(
                 IntStream.range(0, Storage.orders.size())
                 .filter(i -> Storage.orders.get(i).getOrderId().equals(order.getOrderId()))
-                .findFirst().getAsInt(),
+                .findFirst().orElse(-1),
                 order
         );
     }
@@ -29,7 +29,7 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public List<Order> getUserOrders(User user) {
         return Storage.orders.stream()
-                .filter(order -> order.getUserId().equals(user))
+                .filter(order -> order.getUserId().equals(user.getId()))
                 .collect(Collectors.toList());
     }
 

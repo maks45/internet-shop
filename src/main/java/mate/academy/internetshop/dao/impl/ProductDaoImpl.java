@@ -25,7 +25,7 @@ public class ProductDaoImpl implements ProductDao {
         return Storage.products.set(
                 IntStream.range(0, Storage.products.size())
                         .filter(i -> Storage.products.get(i).getId().equals(product.getId()))
-                        .findFirst().getAsInt(),
+                        .findFirst().orElse(-1),
                 product);
     }
 
