@@ -21,6 +21,7 @@ public class CompleteOrderController extends HttpServlet {
             (ShoppingCartService) INJECTOR.getInstance(ShoppingCartService.class);
     private final UserService userService =
             (UserService) INJECTOR.getInstance(UserService.class);
+    private int st;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
