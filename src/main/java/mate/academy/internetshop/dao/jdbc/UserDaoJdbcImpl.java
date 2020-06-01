@@ -21,8 +21,8 @@ import mate.academy.internetshop.util.ConnectionUtil;
 public class UserDaoJdbcImpl implements UserDao {
     @Override
     public Optional<User> findByLogin(String login) {
-        String query = "SELECT users.user_id, usersname, login, password, salt "
-                + "FROM users WHERE users.login = ?;";
+        String query = "SELECT u.user_id, usersname, login, password, salt "
+                + "FROM users as u WHERE u.login = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
@@ -84,8 +84,8 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public Optional<User> get(Long id) {
-        String query = "SELECT users.user_id, usersname, login, password, salt"
-                + " FROM users WHERE users.user_id = ?";
+        String query = "SELECT u.user_id, usersname, login, password, salt"
+                + " FROM users as u WHERE u.user_id = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query);
@@ -100,8 +100,8 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public List<User> getAll() {
-        String query = "SELECT users.user_id, usersname, login, password, salt "
-                + "FROM users ORDER BY users.user_id;";
+        String query = "SELECT u.user_id, usersname, login, password, salt "
+                + "FROM users as u ORDER BY u.user_id;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query);
@@ -174,9 +174,9 @@ public class UserDaoJdbcImpl implements UserDao {
     }
 
     private Set<Role> getUserRoles(Long userId) {
-        String query = "SELECT roles.role_id, roles.role_name FROM roles "
-                + "INNER JOIN users_roles ON roles.role_id = users_roles.role_id "
-                + "WHERE users_roles.user_id = ?";
+        String query = "SELECT r.role_id, r.role_name FROM roles as r "
+                + "INNER JOIN users_roles as ur ON r.role_id = ur.role_id "
+                + "WHERE ur.user_id = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             Set<Role> roles = new HashSet<>();
             PreparedStatement preparedStatement = connection.prepareStatement(query);

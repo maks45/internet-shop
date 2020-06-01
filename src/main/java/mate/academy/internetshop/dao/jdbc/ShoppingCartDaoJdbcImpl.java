@@ -75,8 +75,8 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
 
     @Override
     public Optional<ShoppingCart> get(Long id) {
-        String query = "SELECT shopping_carts.shopping_cart_id, shopping_cart_user_id "
-                + "FROM shopping_carts WHERE shopping_carts.shopping_cart_id = ?;";
+        String query = "SELECT sc.shopping_cart_id, shopping_cart_user_id "
+                + "FROM shopping_carts as sc WHERE sc.shopping_cart_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query);
@@ -92,7 +92,7 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
     @Override
     public List<ShoppingCart> getAll() {
         String query = "SELECT shopping_cart_id, shopping_cart_user_id "
-                + "FROM shopping_carts ORDER BY shopping_carts.shopping_cart_id;";
+                + "FROM shopping_carts as sc ORDER BY sc.shopping_cart_id;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query);
