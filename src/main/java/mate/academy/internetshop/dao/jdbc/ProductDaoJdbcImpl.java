@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
 
 @Dao
 public class ProductDaoJdbcImpl implements ProductDao {
-    private static final Logger LOGGER = Logger.getLogger(ProductDaoJdbcImpl.class);
+    private static final Logger logger = Logger.getLogger(ProductDaoJdbcImpl.class);
 
     @Override
     public Product create(Product product) {
@@ -46,7 +46,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
             preparedStatement.setBigDecimal(2, product.getPrice());
             preparedStatement.setLong(3, product.getId());
             if (preparedStatement.executeUpdate() == 0) {
-                LOGGER.warn("Can't update product with id: " + product.getId());
+                logger.warn("Can't update product with id: " + product.getId());
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Can't update product ", e);

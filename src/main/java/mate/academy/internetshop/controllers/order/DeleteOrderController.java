@@ -1,7 +1,6 @@
 package mate.academy.internetshop.controllers.order;
 
 import java.io.IOException;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,8 +13,7 @@ public class DeleteOrderController extends HttpServlet {
             (OrderService) INJECTOR.getInstance(OrderService.class);
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String orderId = req.getParameter("order_id");
         orderService.delete(Long.parseLong(orderId));
         resp.sendRedirect(req.getContextPath() + "/orders/user");

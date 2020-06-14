@@ -25,8 +25,8 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     @Override
     public List<Order> getUserOrdersByUserId(Long userId) {
-        String query = "SELECT orders.order_id, order_user_id "
-                + "FROM orders WHERE orders.order_user_id = ?;";
+        String query = "SELECT o.order_id, order_user_id "
+                + "FROM orders as o WHERE o.order_user_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query);
@@ -82,8 +82,8 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     @Override
     public Optional<Order> get(Long id) {
-        String query = "SELECT orders.order_id, order_user_id "
-                + "FROM orders WHERE orders.order_id = ?;";
+        String query = "SELECT o.order_id, order_user_id "
+                + "FROM orders as o WHERE o.order_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
@@ -99,8 +99,8 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     @Override
     public List<Order> getAll() {
-        String query = "SELECT orders.order_id, order_user_id "
-                + "FROM orders ORDER BY orders.order_id;";
+        String query = "SELECT o.order_id, order_user_id "
+                + "FROM orders as o ORDER BY o.order_id;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
@@ -158,9 +158,9 @@ public class OrderDaoJdbcImpl implements OrderDao {
     }
 
     private List<Product> getOrderProducts(Long id) {
-        String query = "SELECT products.product_id, product_name, price "
-                + "FROM products "
-                + "JOIN orders_products op ON products.product_id = op.product_id "
+        String query = "SELECT p.product_id, product_name, price "
+                + "FROM products as p "
+                + "JOIN orders_products op ON p.product_id = op.product_id "
                 + "WHERE op.order_id = ?;";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection
